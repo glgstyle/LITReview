@@ -8,7 +8,8 @@ from django.http import HttpResponse
 
 def flow(request):
     """View function for flow page of application."""
-    return HttpResponse("<h1>Page de flux</h1>")
+    # return HttpResponse("<h1>Page de flux</h1><h2>Voir les tickects</h2><h2>Voir les avis des utilisateurs que je suis</h2> <h2>Voir mes tickets et avis(posts?)</h2> <h2>Voir les avis en réponse à mes tickects</h2>")
+    return render(request, "flow.html")
 
 def createTicket(request):
     """View function for createTicket page of application."""
@@ -21,10 +22,16 @@ def createReview(request):
 def createReviewFromTicket(request):
     """View function for createReviewFromTicket page of application."""
     return HttpResponse("<h1>Page créer une critique (en reponse à un ticket)</h1>")
+    
+def subscription(request):
+    """View function for subscription page of application."""
+    # return HttpResponse("<h1>Page d'abonnement</h1>")
+    return render(request, "subscription.html")
 
 def displayYourPosts(request):
     """View function for displayYourPosts page of application."""
-    return HttpResponse("<h1>Page voir vos posts</h1>")
+    # return HttpResponse("<h1>Page voir vos posts</h1>")
+    return render(request, "posts.html")
 
 def modifyYourReview(request):
     """View function for modifyYourReview page of application."""

@@ -4,15 +4,12 @@ from django.http import HttpResponse
 
 def home(request):
     """View function for home page of application."""
-    return HttpResponse("<h1>Page d'accueil</h1>")
+    # return HttpResponse("<h1>Page d'accueil</h1>")
+    return render(request, "index.html")
 
 def registration(request):
     """View function for registration page of application."""
     return HttpResponse("<h1>Page d' inscription</h1>")
-
-def subscription(request):
-    """View function for subscription page of application."""
-    return HttpResponse("<h1>Page d'abonnement</h1>")
 
 # # Image_book
 

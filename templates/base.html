@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+    {% include "header.html" %}
+    {% block head %}
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge;text/html; charset=utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            {% block title %}
+                <title>LIT Review</title>
+            {% endblock %}
+            {% block metaDescription %}
+                <meta name="robots" content="index, follow" />
+                <meta name="language" content="fr" />
+            {% endblock %}
+            {% block stylesheets %}
+            {% endblock %}
+            {% block javascripts %}
+            {% endblock %}
+        </head>
+    {% endblock %}
+    <body>
+        {% block header %}
+        {% endblock %}    
+        {% block content %}
+        {% endblock %}   
+    </body>
+
+
+</html>

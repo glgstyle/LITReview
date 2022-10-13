@@ -20,10 +20,11 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('flow/', views.flow),
+    path('', views.flow),
     path('create_ticket/', views.createTicket),
     path('create_review/', views.createReview),
     path('create_review_from_ticket/', views.createReviewFromTicket),
+    path('subscription/', views.subscription),
     path('display_your_posts/', views.displayYourPosts),
     path('modify_your_review/', views.modifyYourReview),
     path('modify_your_ticket/', views.modifyYourTicket),

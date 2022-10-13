@@ -21,8 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('', include('authentification.urls')),
-    path('account/', include('review.urls')),
+    path('', include('authentication.urls')),
+    path('flow/', include('review.urls')),
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,

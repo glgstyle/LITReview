@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <!-- <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LIT Review</title>
+        <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+        <link rel="stylesheet" href="/assets/style/header.css">
+    </head> -->
+    {% block stylesheets %}
+        <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+        <link rel="stylesheet" href="/assets/style/header.css">
+    {% endblock %}
+    <body>
+        {% block header %}
+            <header>
+                <div>
+                    <a href="#"><img src="/assets/images/LITReview_logo.png" alt="icone de LIT Review"></a>
+                    <a href="#"><h1>LITReview</h1></a>
+                    <!-- If authenticated display -->
+                    <ul>
+                        <a href="flow/"><li>Flux</li></a>
+                        <a href="flow/display_your_posts/"><li>Posts</li></a>
+                        <a href="flow/subscription/"><li>Abonnements</li></a>
+                        <!-- deconnecter et path to home -->
+                        <a href="#"><li>Se déconnecter</li></a>
+                    </ul>
+                </div>
+            </header>
+        {% endblock %}
+        
+    </body>
+</html>
