@@ -13,7 +13,8 @@ def flow(request):
 
 def createTicket(request):
     """View function for createTicket page of application."""
-    return HttpResponse("<h1>Page création d'un ticket</h1>")
+    # return HttpResponse("<h1>Page création d'un ticket</h1>")
+    return render(request, "create-ticket.html")
 
 def createReview(request):
     """View function for createReview page of application."""

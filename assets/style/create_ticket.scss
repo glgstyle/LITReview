@@ -1,0 +1,26 @@
+body{
+    width: 100%;
+    box-sizing: border-box;
+    main{
+        width: 90%;
+        margin: auto;
+        h1{
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 25px;
+        }
+        h2,h3,h4{
+            font-size: 1.2rem;
+            padding: 10px 10px 10px 0;
+        }
+        #book-description{
+            height: 150px;
+        }
+        #button-upload{
+            width: 200px;
+        }
+        .send{
+            float: right;
+        }
+    }
+}

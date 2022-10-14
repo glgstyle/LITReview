@@ -1,0 +1,28 @@
+body {
+  width: 100%;
+  box-sizing: border-box;
+}
+body main {
+  width: 90%;
+  margin: auto;
+}
+body main h1 {
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 25px;
+}
+body main h2, body main h3, body main h4 {
+  font-size: 1.2rem;
+  padding: 10px 10px 10px 0;
+}
+body main #book-description {
+  height: 150px;
+}
+body main #button-upload {
+  width: 200px;
+}
+body main .send {
+  float: right;
+}
+
+/*# sourceMappingURL=create_ticket.css.map */
