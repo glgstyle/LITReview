@@ -9,7 +9,8 @@ def home(request):
 
 def registration(request):
     """View function for registration page of application."""
-    return HttpResponse("<h1>Page d' inscription</h1>")
+    # return HttpResponse("<h1>Page d' inscription</h1>")
+    return render(request, "registration.html")
 
 # # Image_book
 

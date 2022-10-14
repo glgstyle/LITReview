@@ -1,1 +1,78 @@
 {% extends 'base.html' %}
+{% block stylesheets %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/style/flow.css">
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+{% endblock %}  
+<body>
+    {% block content %}
+    <section class="flow">
+        <div class="your-reviews">
+            <div class="reviews-buttons">
+                <button type="submit" class="btn btn-primary">Demander une critique</button>
+                <button type="submit" class="btn btn-primary">Créer une critique</button>
+            </div>
+            <div class="review-content">
+                <div class="review-title-and-date">
+                    <h2>Vous avez publié une critique</h2>
+                    <h3>13:14, 26 août 2020</h3>
+                </div>
+                <div class="rate">
+                    <h4>Véritablement révolutionnaire</h4><span>-</span>
+                    <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                    </div>
+                </div>
+                <blockquote>Une	excellente	lecture	et	je	vous	recommande	vivement !</blockquote>
+                <div class="ticket">
+                    <h4>Ticket - username</h4>
+                    <h5>Book title - Author</h5>
+                    <figure>Book image here
+                        <img src="" alt="">
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <div class="asked-reviews">
+            <div class="asked-review-content">
+                <div class="asked-review-title-and-date">
+                    <h2>username a demandé une critique</h2>
+                    <h3>13:14, 26 août 2020</h3>
+                </div>
+                <h5>Book title - Author</h5>
+                <p></p>
+                <img src="" alt="">
+                <div class="asked-review-button">
+                    <button type="submit" class="btn btn-primary">Créer une critique</button>
+                </div>
+            </div>
+        </div>
+        <div class="posted-reviews">
+            <div class="review-content">
+                <div class="review-title-and-date">
+                    <h2>username a publié une critique</h2>
+                    <h3>13:14, 26 août 2020</h3>
+                </div>
+                <div class="rate">
+                    <h4>Excellent</h4><span>-</span>
+                    <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                    </div>
+                </div>
+                <div class="ticket">
+                    <h4>Ticket - username</h4><div class="container">
+                        <span id="rateMe1"></span>
+                      </div>
+                    <h5>Book title - Author</h5>
+                    <figure>
+                        <img src="" alt="">
+                    </figure>
+                    <div class="asked-review-button">
+                        <button type="submit" class="btn btn-primary">Créer une critique</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+    {% endblock %}   
+</body>

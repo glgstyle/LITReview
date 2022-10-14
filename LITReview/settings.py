@@ -60,7 +60,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            '/review/templates]',
+            '/authentication/templates',
+            '/review/templates',
             os.path.join(BASE_DIR,'templates')],
             
         'APP_DIRS': True,

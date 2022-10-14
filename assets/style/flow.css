@@ -1,0 +1,101 @@
+@charset "UTF-8";
+body {
+  width: 100%;
+}
+body .flow {
+  width: 700px;
+  margin: 50px auto;
+}
+body .flow .reviews-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 15px;
+  max-height: 100px;
+}
+body .flow .reviews-buttons button {
+  width: 45%;
+  height: max-content;
+}
+body .flow .review-title-and-date, body .flow .asked-review-title-and-date {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+body .flow .review-title-and-date h2, body .flow .asked-review-title-and-date h2 {
+  font-size: 1rem;
+}
+body .flow .review-title-and-date h3, body .flow .asked-review-title-and-date h3 {
+  font-size: 0.7rem;
+}
+body .flow .review-content, body .flow .asked-review-content {
+  border: 1px solid black;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+body .flow .review-content h4, body .flow .asked-review-content h4 {
+  font-size: 1.2rem;
+}
+body .flow .review-content .ticket, body .flow .asked-review-content .ticket {
+  border: solid 1px black;
+  padding: 10px;
+}
+body .flow .review-content .ticket h4, body .flow .asked-review-content .ticket h4 {
+  font-size: 1rem;
+  font-weight: normal;
+}
+body .flow .review-content h5, body .flow .asked-review-content h5 {
+  font-size: 1rem;
+  font-weight: normal;
+}
+body .flow .review-content .asked-review-button, body .flow .asked-review-content .asked-review-button {
+  min-height: 40px;
+  margin: 15px;
+}
+body .flow .review-content .asked-review-button button, body .flow .asked-review-content .asked-review-button button {
+  float: right;
+}
+body .flow .posted-reviews .asked-review-button {
+  margin: 15px 2px;
+}
+body .flow .rate {
+  display: flex;
+  align-items: center;
+}
+body .flow .rate h4, body .flow .rate span {
+  margin: 0;
+  padding-right: 15px;
+  font-weight: 500;
+}
+body .flow .rate .rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+body .flow .rate .rating > input {
+  display: none;
+}
+body .flow .rate .rating > label {
+  position: relative;
+  width: 1em;
+  font-size: 30px;
+  font-weight: 300;
+  color: #FFD600;
+  cursor: pointer;
+}
+body .flow .rate .rating > label::before {
+  content: "★";
+  position: absolute;
+  opacity: 0;
+}
+body .flow .rate .rating > label:hover:before,
+body .flow .rate .rating > label:hover ~ label:before {
+  opacity: 1 !important;
+}
+body .flow .rate .rating > input:checked ~ label:before {
+  opacity: 1;
+}
+body .flow .rate .rating:hover > input:checked ~ label:before {
+  opacity: 0.4;
+}
+
+/*# sourceMappingURL=flow.css.map */

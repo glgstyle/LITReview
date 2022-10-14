@@ -18,11 +18,15 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+import authentication
+from authentication import views
+import review
+
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', include('authentication.urls')),
-    path('flow/', include('review.urls')),
+    path('flow/',include('review.urls')),
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,
