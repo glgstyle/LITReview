@@ -78,6 +78,8 @@ body .rate .rating:hover > input:checked ~ label:before {
 
 body .book-review-container {
   padding: 0 !important;
+  padding-bottom: 20px;
+  margin-bottom: 50px;
 }
 body .book-review-container h2 {
   padding: 15px 5px;
