@@ -15,7 +15,7 @@ body main .follow-new-user {
   display: flex;
   justify-content: flex-end;
 }
-body main .follow-new-user .input-group {
+body main .follow-new-user .input-group, body main .follow-new-user .mb-3 {
   align-items: center;
   width: 90%;
   margin-right: 0;
@@ -36,6 +36,9 @@ body main .follow-new-user #button-addon2 {
 }
 body main .follow-new-user, body main .followers {
   margin-top: 35px;
+}
+body main #followed-users-input {
+  margin-bottom: 0 !important;
 }
 
 /*# sourceMappingURL=subscription.css.map */
