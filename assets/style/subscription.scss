@@ -1,0 +1,39 @@
+body{
+    width: 100%;
+    box-sizing: border-box;
+    main{
+        width: 80%;
+        margin: auto;
+        h1, h2{
+            padding: 25px 25px 15px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        .follow-new-user{
+            display: flex;
+            justify-content: flex-end;
+            .input-group{
+                align-items: center;
+                width: 90%;
+                margin-right: 0;
+            }
+            #first-input{
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+                height: 55px;
+            }
+            ::placeholder {
+                text-align: center; 
+            }
+            #button-addon2{
+                margin-left: 50px;
+                border-radius: 5px;
+                width: 175px;
+                height: 40px;
+            }
+        }
+        .follow-new-user, .followers{
+            margin-top: 35px;
+        }
+    }
+}

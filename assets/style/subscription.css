@@ -1,0 +1,41 @@
+body {
+  width: 100%;
+  box-sizing: border-box;
+}
+body main {
+  width: 80%;
+  margin: auto;
+}
+body main h1, body main h2 {
+  padding: 25px 25px 15px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+body main .follow-new-user {
+  display: flex;
+  justify-content: flex-end;
+}
+body main .follow-new-user .input-group {
+  align-items: center;
+  width: 90%;
+  margin-right: 0;
+}
+body main .follow-new-user #first-input {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  height: 55px;
+}
+body main .follow-new-user ::placeholder {
+  text-align: center;
+}
+body main .follow-new-user #button-addon2 {
+  margin-left: 50px;
+  border-radius: 5px;
+  width: 175px;
+  height: 40px;
+}
+body main .follow-new-user, body main .followers {
+  margin-top: 35px;
+}
+
+/*# sourceMappingURL=subscription.css.map */
