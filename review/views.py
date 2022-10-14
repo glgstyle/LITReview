@@ -21,7 +21,6 @@ def createReview(request):
     # return HttpResponse("<h1>Page créer une critique (pas en rapport avec un ticket)</h1>")
     return render(request, "create-review.html")
 
-
 def createReviewFromTicket(request):
     """View function for createReviewFromTicket page of application."""
     # return HttpResponse("<h1>Page créer une critique (en reponse à un ticket)</h1>")
