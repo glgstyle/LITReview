@@ -24,7 +24,7 @@ import review
 
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', include('authentication.urls')),
     path('flow/',include('review.urls')),
 ]

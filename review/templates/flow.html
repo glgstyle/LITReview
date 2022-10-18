@@ -5,6 +5,7 @@
 {% endblock %}
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <!-- <script src="/templates/script.js"></script> -->
 {% endblock %}  
 <body>
     {% block content %}
@@ -12,7 +13,7 @@
         <div class="your-reviews">
             <div class="reviews-buttons">
                 <button type="submit" class="btn btn-primary">Demander une critique</button>
-                <button type="submit" class="btn btn-primary">Créer une critique</button>
+                <button type="submit" class="btn btn-primary" id="createReviewButton">Créer une critique</button>
             </div>
             <div class="review-content">
                 <div class="review-title-and-date">
@@ -21,12 +22,17 @@
                 </div>
                 <div class="rate">
                     <h4>Véritablement révolutionnaire</h4><span>-</span>
+                    <!-- <h4>{{ ticket.title }}</h4><span>-</span> -->
+                    <!-- {{ review.rating }} -->
                     <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
                     </div>
                 </div>
                 <blockquote>Une	excellente	lecture	et	je	vous	recommande	vivement !</blockquote>
+                <!-- <blockquote>{{ ticket.description }}</blockquote> -->
                 <div class="ticket">
                     <h4>Ticket - username</h4>
+                    <!-- <h4>Ticket - {{ ticket.user }}</h4> -->
+
                     <h5>Book title - Author</h5>
                     <figure>Book image here
                         <img src="" alt="">
@@ -74,5 +80,6 @@
             </div>
         </div>
     </section> 
+    <script src="/templates/script.js"></script>
     {% endblock %}   
 </body>
