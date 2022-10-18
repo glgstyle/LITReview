@@ -39,11 +39,15 @@ def displayYourPosts(request):
 
 def modifyYourReview(request):
     """View function for modifyYourReview page of application."""
-    return HttpResponse("<h1>Page modifier votre critique</h1>")
+    # return HttpResponse("<h1>Page modifier votre critique</h1>")
+    return render(request, "modify-review.html")
+
 
 def modifyYourTicket(request):
     """View function for modifyYourTicket page of application."""
-    return HttpResponse("<h1>Page modifier votre ticket</h1>")
+    # return HttpResponse("<h1>Page modifier votre ticket</h1>")
+    return render(request, "modify-ticket.html")
+
 
 # # Image_book
 
