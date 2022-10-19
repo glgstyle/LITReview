@@ -20,7 +20,6 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', views.flow),
     path('create_ticket/', views.createTicket),
     path('create_review/', views.createReview),
     path('create_review_from_ticket/', views.createReviewFromTicket),
@@ -28,6 +27,7 @@ urlpatterns = [
     path('display_your_posts/', views.displayYourPosts),
     path('modify_your_review/', views.modifyYourReview),
     path('modify_your_ticket/', views.modifyYourTicket),
+    path('', views.flow, name='flux'),
     # path('image_upload/', views.book_image_view, name = 'image_upload'),
     # path('success', views.success, name = 'success'),
 ]

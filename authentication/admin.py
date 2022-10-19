@@ -1,11 +1,7 @@
 from django.contrib import admin
-from review.models import Ticket
-from review.models import Review
+from .models import UserFollows
 
+@admin.register(UserFollows)
+class UserFollowsAdmin(admin.ModelAdmin):
+    list_display: ('id')
 
-admin.site.register(Ticket)
-admin.site.register(Review)
-
-# Register your models here.
-
-# if is authenticated: direction path flow

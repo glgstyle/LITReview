@@ -16,13 +16,13 @@
         {% block header %}
             <header>
                 <div>
-                    <a href="#"><img src="/assets/images/LITReview_logo.png" alt="icone de LIT Review"></a>
-                    <a href="#"><h1>LITReview</h1></a>
+                    <a href="{% url 'accueil' %}"><img src="/assets/images/LITReview_logo.png" alt="icone de LIT Review"></a>
+                    <a href="{% url 'accueil' %}"><h1>LITReview</h1></a>
                     <!-- If authenticated display -->
                     <ul>
-                        <a href="flow/"><li>Flux</li></a>
-                        <a href="flow/display_your_posts/"><li>Posts</li></a>
-                        <a href="flow/subscription/"><li>Abonnements</li></a>
+                        <a href="{% url 'flux' %}"><li>Flux</li></a>
+                        <a href="/flow/display_your_posts/"><li>Posts</li></a>
+                        <a href="/flow/subscription/"><li>Abonnements</li></a>
                         <!-- deconnecter et path to home -->
                         <a href="#"><li>Se déconnecter</li></a>
                     </ul>

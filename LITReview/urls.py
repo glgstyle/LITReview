@@ -25,8 +25,8 @@ import review
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('authentication.urls')),
     path('flow/',include('review.urls')),
+    path('',include('authentication.urls')),
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,

@@ -16,5 +16,8 @@ body form {
 body form .form-group {
   padding: 15px;
 }
+body form .form-group input {
+  margin: 15px 0px;
+}
 
 /*# sourceMappingURL=registration.css.map */
