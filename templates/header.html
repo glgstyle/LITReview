@@ -19,13 +19,16 @@
                     <a href="{% url 'accueil' %}"><img src="/assets/images/LITReview_logo.png" alt="icone de LIT Review"></a>
                     <a href="{% url 'accueil' %}"><h1>LITReview</h1></a>
                     <!-- If authenticated display -->
+                    {% if user.is_authenticated %}       
                     <ul>
                         <a href="{% url 'flux' %}"><li>Flux</li></a>
                         <a href="/flow/display_your_posts/"><li>Posts</li></a>
                         <a href="/flow/subscription/"><li>Abonnements</li></a>
                         <!-- deconnecter et path to home -->
-                        <a href="#"><li>Se déconnecter</li></a>
+                        <a href="{% url 'logout' %}"><li>Se déconnecter</li></a>
                     </ul>
+                    <!-- <p>Welcome {{ user.username }} !!!</p> -->
+                    {% endif %}
                 </div>
             </header>
         {% endblock %}

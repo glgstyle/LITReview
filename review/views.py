@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-
-# import review
+from django.contrib.auth.decorators import login_required
 from review.models import Ticket, Review
-# from .forms import *
 
+
+@login_required
 def flow(request):
     """View function for flow page of application."""
     return render(request, "flow.html", {'review': Review, 'ticket': Ticket})
@@ -32,7 +31,6 @@ def displayYourPosts(request):
 def modifyYourReview(request):
     """View function for modifyYourReview page of application."""
     return render(request, "modify-review.html")
-
 
 def modifyYourTicket(request):
     """View function for modifyYourTicket page of application."""

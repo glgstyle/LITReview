@@ -1,13 +1,12 @@
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from .registrationForm import NewUserForm
-from django.contrib.auth import authenticate
+from .forms.registrationForm import NewUserForm
+from .forms.loginForm import loginForm
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
-def home(request):
-    """View function for home page of application."""
-    return render(request, "index.html")
 
 def RegistrationConfirmation(request):
     """View function for registration confirmation page of application."""
@@ -27,39 +26,41 @@ def registration(request):
             usernames = User.objects.filter(is_active=True).values_list('username', flat=True)
             if email in usernames:
                 messages.error(request, 'Désolé ce mail existe déjà.', extra_tags='name')
-                # return redirect('/registration/')
             else:
                 # encrypt password
                 user.set_password(password)
                 user.save()
                 # redirect to a new URL:
                 return HttpResponseRedirect('/registration-confirmation/')
-            # user = authenticate(username=username, password=raw_password)
-            # login(request, user)
-            # return redirect('home')
-            # process the data in form.cleaned_data as required
-            # ...
-
-            # renvoyer vers un lien pour se connecter
-
     # if a GET (or any other method) we'll create a blank form
     else:
         form = NewUserForm()
 
     return render(request, 'registration.html', {'form': form})
     
-def login():
-    user = authenticate(username='john', password='secret')
-    if user is not None:
-        # A backend authenticated the credentials
-        pass
-    else:
-        pass
-        # No backend authenticated the credentials
+def login_page(request):
+    form = loginForm()
+    if request.method == 'POST':
+        form = loginForm(request.POST)
+        if form.is_valid():
+            user = authenticate(
+                username=form.cleaned_data.get('username'),
+                password=form.cleaned_data.get('password'),
+            )
+            if user is not None:
+                login(request, user)
+                # return HttpResponseRedirect('/flow/')
+                return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
 
+            else:
+                messages.error = 'Login failed!'
+    return render(
+        request, 'index.html', context={'form': form})
 
-# fonction login 
-# si l'utilisateur existe et que sont mot de passe est correct log le sur flow/
+def logout_user(request):
+    logout(request)
+    # Redirect back to index page.
+    return redirect('accueil')
 
 # # Image_book
 
