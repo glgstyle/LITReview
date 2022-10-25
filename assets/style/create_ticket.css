@@ -18,7 +18,7 @@ body main h2, body main h3, body main h4 {
 body main #book-description {
   height: 150px;
 }
-body main #button-upload {
+body main #button-upload, body main #button-send {
   width: 200px;
 }
 body main .send {

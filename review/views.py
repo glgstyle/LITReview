@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from review.models import Ticket, Review
+from .forms.ticketForm import ticketForm
+from django.contrib import messages
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.contrib.auth.models import User
 
 
 @login_required
@@ -10,7 +15,47 @@ def flow(request):
 
 def createTicket(request):
     """View function for createTicket page of application."""
-    return render(request, "create-ticket.html")
+    form = ticketForm(request.POST, request.FILES)
+    if form.is_valid():
+        ticket = form.save(commit=False)
+        ticket.user = request.user
+        ticket.save()
+        return redirect('/flow/')
+    # # if this is a POST request we need to process the form data
+    # if request.method == 'POST':
+    #     # create a form instance and populate it with data from the request:
+    #     form = ticketForm(request.POST)
+    #     # check whether it's valid:
+    #     if form.is_valid():
+    #         title = form.cleaned_data.get('title')
+    #         description = form.cleaned_data.get('description')
+    #         image = form.get('image')
+    #         user = User.objects.get(pk=request.user)
+    #         time_created = datetime.datetime.now
+    #         ticket = Ticket()
+    #         ticket.title = title
+    #         ticket.description = description
+    #         ticket.image = image
+    #         ticket.user = user
+    #         ticket.time_created = time_created
+    #         tickets = ticket.objects.filter(is_active=True).values_list('ticket', flat=True)
+    #         if ticket in tickets:
+    #             messages.error(request, 'Désolé un ticket a déjà été crée sur ce livre.', extra_tags='name')
+    #         else:
+    #             ticket.save()
+    #             # redirect to a new URL:
+    #             return HttpResponseRedirect('')
+    # # if a GET (or any other method) we'll create a blank form
+    # else:
+    #     form = ticketForm()
+
+
+    return render(request, 'create-ticket.html', {'form': form})
+    # return render(request, "create-ticket.html")
+
+def confirmation(request):
+    """View function for confirmation page of application."""
+    return render(request, "confirmation.html")
 
 def createReview(request):
     """View function for createReview page of application."""

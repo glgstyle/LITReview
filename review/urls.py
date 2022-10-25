@@ -28,6 +28,7 @@ urlpatterns = [
     path('modify_your_review/', views.modifyYourReview),
     path('modify_your_ticket/', views.modifyYourTicket),
     path('', views.flow, name='flux'),
+    path('confirmation/', views.confirmation),
     # path('image_upload/', views.book_image_view, name = 'image_upload'),
     # path('success', views.success, name = 'success'),
 ]
