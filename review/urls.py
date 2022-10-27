@@ -17,12 +17,15 @@ from django.urls import path
 from review import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import re_path
 
 
 urlpatterns = [
     path('create_ticket/', views.createTicket),
     path('create_review/', views.createReview),
-    path('create_review_from_ticket/', views.createReviewFromTicket),
+    # path('create_review_from_ticket/', views.createReviewFromTicket),
+    # path(r'create_review_from_ticket/(?P<ticket_id>\d+)/$', views.createReviewFromTicket, name='ticketReview'),
+    path('create_review_from_ticket/<int:ticket_id>/', views.createReviewFromTicket, name='ticketReview'),
     path('subscription/', views.subscription),
     path('display_your_posts/', views.displayYourPosts),
     path('modify_your_review/', views.modifyYourReview),

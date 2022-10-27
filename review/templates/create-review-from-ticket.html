@@ -12,38 +12,61 @@
                 <div class="asked-review-container">
                     <div class="asked-review-content">
                         <div class="asked-review-title-and-date">
-                            <h2>username a demandé une critique</h2>
-                            <h3>13:14, 26 août 2020</h3>
+                            <h2>{{ ticket.user }} a demandé une critique</h2>
+                            <h3>{{ ticket.time_created | date:'H:i, d F Y' }}</h3>
                         </div>
-                        <h5>Book title - Author</h5>
-                        <p>Je suis à la recherche d'un avis sur ce sujet, svp, merci !</p>
-                        <img src="" alt="" width="150px" height="150px">
+                        <h5>{{ ticket.title }} - Author</h5>
+                        <p>{{ ticket.description }}</p>
+                        <img src="" alt="" width="150px" height="150px">{{ ticket.image }}
                     </div>
                 </div>
             <div class="review-text-container">
                 <h2>Critique</h2>
                 <div class="review-text-content">
-                    <h2>Titre</h2>
-                    <div class="title-of-review">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="review-title" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <h2>Titre</h2>
+                        <div class="title-of-review">
+                            <div class="input-group mb-3">
+                                <!-- <input type="text" class="form-control" id="review-title" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
+                                {{ form.headline }}
+                            </div>
                         </div>
-                    </div>
-                    <h3>Note</h3>
-                    <div class="rate">
-                        <!-- <h4>Excellent</h4><span>-</span> -->
-                        <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                        <h3>Note</h3>
+                        <div class="rate">
+                            <!-- <h4>Excellent</h4><span>-</span> -->
+                            <div class="rating" id="star-rate"> 
+                                <input type="radio" name="star-rating" value="6" id="6"><label for="6">☆</label> 
+                                <input type="radio" name="star-rating" value="4" id="4"><label for="4">☆</label>
+                                <input type="radio" name="star-rating" value="3" id="3"><label for="3">☆</label> 
+                                <input type="radio" name="star-rating" value="2" id="2"><label for="2">☆</label> 
+                                <input type="radio" name="star-rating" value="1" id="1"><label for="1">☆</label>
+                            </div>
                         </div>
-                    </div>
-                    <h3>Commentaire</h3>
-                    <div class="comment">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="book-description" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <div hidden="hidden">{{ form.rating }}</div>
+                        <script>
+                            function setStarsValue() {
+                                let ele = document.getElementsByName('star-rating');
+                                for(i = 0; i < ele.length; i++) {
+                                    if(ele[i].checked & ele[i].value != 6)
+                                    myValue = ele[i].value;
+                                    else if (ele[i].value == 6)
+                                    myValue = 5;
+                                    document.getElementById('result').setAttribute('value', myValue)
+                                }
+                            }
+                        </script>
+                        <h3>Commentaire</h3>
+                        <div class="comment">
+                            <div class="input-group mb-3">
+                                {{ form.body }}
+                                <!-- <input type="text" class="form-control" id="book-description" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
+                            </div>
                         </div>
-                    </div>
-                    <div class="send">
-                        <button class="btn btn-primary" type="button" id="button-upload">Envoyer</button>
-                    </div>
+                        <div class="send">
+                            <button class="btn btn-primary" type="submit" id="send-review-from-ticket" onclick="setStarsValue()";>Envoyer</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </main>

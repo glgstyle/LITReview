@@ -111,5 +111,8 @@ body .asked-review-container .asked-review-content .asked-review-title-and-date 
 body .asked-review-container .asked-review-content .asked-review-title-and-date h3 {
   font-size: 0.7rem;
 }
+body #send-review-from-ticket {
+  width: 200px;
+}
 
 /*# sourceMappingURL=create_review_from_ticket.css.map */

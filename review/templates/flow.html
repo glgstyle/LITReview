@@ -40,20 +40,23 @@
                 </div>
             </div>
         </div>
+        {% for ticket in tickets %}
         <div class="asked-reviews">
             <div class="asked-review-content">
                 <div class="asked-review-title-and-date">
-                    <h2>username a demandé une critique</h2>
-                    <h3>13:14, 26 août 2020</h3>
+                    <h2>{{ ticket.user }} a demandé une critique numéro {{ ticket.id }}</h2>
+                    <h3>{{ ticket.time_created | date:'H:i, d F Y' }}</h3>
                 </div>
-                <h5>Book title - Author</h5>
-                <p></p>
-                <img src="" alt="">
+                <h5>{{ ticket.title }} - Author</h5>
+                <p>{{ ticket.description }}</p>
+                <img src="" alt="">{{ ticket.image }}
                 <div class="asked-review-button">
-                    <button type="submit" class="btn btn-primary">Créer une critique</button>
+                    <!-- <button type="submit" class="btn btn-primary" id="createReviewFromTicketButton">Créer une critique</button> -->
+                    <button type="submit" class="btn btn-primary" id="createReviewFromTicketButton" value="{{ticket.id}}">Créer une critique</button>
                 </div>
             </div>
         </div>
+        {% endfor %}
         <div class="posted-reviews">
             <div class="review-content">
                 <div class="review-title-and-date">
