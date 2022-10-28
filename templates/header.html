@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html>
-    <!-- <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>LIT Review</title>
-        <link rel="icon" type="image/x-icon" href="/media/images/favicon.ico">
-        <link rel="stylesheet" href="/assets/style/header.css">
-    </head> -->
+    {% load static %}
     {% block stylesheets %}
-        <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
-        <link rel="stylesheet" href="/assets/style/header.css">
+        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+        <link rel="stylesheet" href="{% static 'style/header.css' %}">
     {% endblock %}
     <body>
         {% block header %}
             <header>
                 <div>
-                    <a href="{% url 'accueil' %}"><img src="/assets/images/LITReview_logo.png" alt="icone de LIT Review"></a>
+                    <a href="{% url 'accueil' %}"><img src="{% static 'images/LITReview_logo.png' %}" alt="icone de LIT Review"></a>
                     <a href="{% url 'accueil' %}"><h1>LITReview</h1></a>
                     <!-- If authenticated display -->
                     {% if user.is_authenticated %}       
@@ -24,10 +17,9 @@
                         <a href="{% url 'flux' %}"><li>Flux</li></a>
                         <a href="/flow/display_your_posts/"><li>Posts</li></a>
                         <a href="/flow/subscription/"><li>Abonnements</li></a>
-                        <!-- deconnecter et path to home -->
+                        <!-- deconnecte and path to home -->
                         <a href="{% url 'logout' %}"><li>Se déconnecter</li></a>
                     </ul>
-                    <!-- <p>Welcome {{ user.username }} !!!</p> -->
                     {% endif %}
                 </div>
             </header>

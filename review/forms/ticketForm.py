@@ -1,4 +1,5 @@
 
+from cProfile import label
 from django import forms
 from review.models import Ticket
 
@@ -6,9 +7,15 @@ from review.models import Ticket
 class TicketForm(forms.ModelForm):
     class Meta:
             model = Ticket
-            fields = ['title', 'description', 'image']
+            fields = ['title', 'author', 'description', 'image']
+            label = {'image' : 'Télécharger'}
             widgets = {
             'title': forms.TextInput(attrs={
+                'class': "form-control",
+                'autocomplete': 'OFF',
+                'required': 'required'
+                }),
+            'author': forms.TextInput(attrs={
                 'class': "form-control",
                 'autocomplete': 'OFF',
                 'required': 'required'
@@ -19,10 +26,13 @@ class TicketForm(forms.ModelForm):
                 'autocomplete': 'OFF'
                 }),
             'image': forms.FileInput(attrs={
-                    'class': 'btn btn-primary',
+                    # 'class': 'btn btn-primary',
                     'type': 'file',
-                    'id': 'button-uppload',
-                    'value': 'Télécharger le fichier',
-                    'label':'Télécharger le fichier'
+                    'id': 'button-upload',
+                    'style':'color:transparent;',
+                    'name': 'button-uppload',
+                    'label':'Télécharger le fichier',
+                    'placeholder':'Télécharger le fichier',
+
                 })
             }

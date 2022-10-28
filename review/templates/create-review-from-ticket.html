@@ -1,7 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %}{% load static %}
 {% block stylesheets %}
-<link rel="stylesheet" href="/assets/style/create_review_from_ticket.css">
+<link rel="stylesheet" href="{% static 'style/create_review_from_ticket.css' %}">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 {% endblock %}
 <body>
     {% block content %}
@@ -28,7 +31,6 @@
                         <h2>Titre</h2>
                         <div class="title-of-review">
                             <div class="input-group mb-3">
-                                <!-- <input type="text" class="form-control" id="review-title" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
                                 {{ form.headline }}
                             </div>
                         </div>
@@ -36,7 +38,7 @@
                         <div class="rate">
                             <!-- <h4>Excellent</h4><span>-</span> -->
                             <div class="rating" id="star-rate"> 
-                                <input type="radio" name="star-rating" value="6" id="6"><label for="6">☆</label> 
+                                <input type="radio" name="star-rating" value="5" id="5"><label for="5">☆</label> 
                                 <input type="radio" name="star-rating" value="4" id="4"><label for="4">☆</label>
                                 <input type="radio" name="star-rating" value="3" id="3"><label for="3">☆</label> 
                                 <input type="radio" name="star-rating" value="2" id="2"><label for="2">☆</label> 
@@ -44,14 +46,12 @@
                             </div>
                         </div>
                         <div hidden="hidden">{{ form.rating }}</div>
-                        <script>
+                        <script type="text/javascript">
                             function setStarsValue() {
                                 let ele = document.getElementsByName('star-rating');
                                 for(i = 0; i < ele.length; i++) {
-                                    if(ele[i].checked & ele[i].value != 6)
+                                    if(ele[i].checked)
                                     myValue = ele[i].value;
-                                    else if (ele[i].value == 6)
-                                    myValue = 5;
                                     document.getElementById('result').setAttribute('value', myValue)
                                 }
                             }
@@ -59,8 +59,7 @@
                         <h3>Commentaire</h3>
                         <div class="comment">
                             <div class="input-group mb-3">
-                                {{ form.body }}
-                                <!-- <input type="text" class="form-control" id="book-description" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
+                                {{ form.body }}-->
                             </div>
                         </div>
                         <div class="send">
@@ -70,5 +69,6 @@
                 </div>
             </div>
         </main>
+        <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
     {% endblock %}
 </body>
