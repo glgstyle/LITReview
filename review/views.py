@@ -14,7 +14,8 @@ from django.shortcuts import get_object_or_404
 def flow(request):
     """View function for flow page of application."""
     tickets = Ticket.objects.all()
-    return render(request, "flow.html", {'review': Review, 'ticket': Ticket, 'tickets': tickets})
+    reviews = Review.objects.filter(user=request.user)
+    return render(request, "flow.html", {'review': Review, 'ticket': Ticket, 'tickets': tickets, 'reviews': reviews})
 
 def createTicket(request):
     """View function for createTicket page of application."""

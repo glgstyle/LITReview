@@ -15,31 +15,56 @@
                 <button type="submit" class="btn btn-primary" id="createTicketButton">Demander une critique</button>
                 <button type="submit" class="btn btn-primary" id="createReviewButton">Créer une critique</button>
             </div>
+            {% for review in reviews %}
             <div class="review-content">
                 <div class="review-title-and-date">
-                    <h2>Vous avez publié une critique</h2>
-                    <h3>13:14, 26 août 2020</h3>
+                    <h2>{{ review.user | capfirst}}, Vous avez publié une critique</h2>
+                    <h3>{{ review.time_created | date:'H:i, d F Y' }}</h3>
                 </div>
+                <!-- <script type="text/javascript">
+                    function setStarsValue() {
+                        let review_value = document.getElementsByClassName('hidden_rating');
+                        // console.log(review_value);
+                        let ele = document.getElementsByName('star-rating');
+                        for (i = 0, j = 0; i < review_value.length, j < ele.length; i++, j++){
+                            valeur = review_value.item(i).innerHTML;
+                            console.log(valeur);
+                            // console.log(review_value[i])
+                            if (ele[j].value == valeur){
+                                ele[j].setAttribute("checked","checked");
+                                // rendre impossible à checker après
+                            }
+                        }
+                    }
+                    window.onload = setStarsValue()
+                </script> -->
                 <div class="rate">
-                    <h4>Véritablement révolutionnaire</h4><span>-</span>
+                    <h4>{{ review.headline| capfirst }}</h4><span>-</span>
                     <!-- <h4>{{ ticket.title }}</h4><span>-</span> -->
-                    <!-- {{ review.rating }} -->
-                    <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                    <!-- <div hidden class="hidden_rating" value="{{ review.rating }}">{{ review.rating }}</div> -->
+                    <div class="hidden_rating" value="{{ review.rating }}">{{ review.rating }}</div>
+                    <div class="rating"> 
+                        <input type="radio" {% if review.rating <= 5 %} checked="checked" {% endif %} name="star-rating" value="5" id="5" disabled><label for="5">☆</label> 
+                        <input type="radio" {% if review.rating <= 4 %} checked="checked" {% endif %} name="star-rating" value="4" id="4" disabled><label for="4">☆</label> 
+                        <input type="radio" {% if review.rating <= 3 %} checked="checked" {% endif %} name="star-rating" value="3" id="3" disabled><label for="3">☆</label> 
+                        <input type="radio" {% if review.rating <= 2 %} checked="checked" {% endif %} name="star-rating" value="2" id="2" disabled><label for="2">☆</label> 
+                        <input type="radio" {% if review.rating <= 1 %} checked="checked" {% endif %} name="star-rating" value="1" id="1" disabled><label for="1">☆</label>
                     </div>
                 </div>
-                <blockquote>Une	excellente	lecture	et	je	vous	recommande	vivement !</blockquote>
+                <blockquote>{{ review.body }}</blockquote>
                 <!-- <blockquote>{{ ticket.description }}</blockquote> -->
                 <div class="ticket">
-                    <h4>Ticket - username</h4>
+                    <h4>{{ review.ticket.user }}</h4>
                     <!-- <h4>Ticket - {{ ticket.user }}</h4> -->
 
-                    <h5>Book title - Author</h5>
-                    <figure>Book image here
-                        <img src="" alt="">
+                    <h5>{{ review.ticket.title }} - {{ review.ticket.author }}</h5>
+                    <figure>
+                        <img src="{{ review.ticket.image }}" alt="couverture du livre {{ review.ticket.title }}">
                     </figure>
                 </div>
             </div>
         </div>
+        {% endfor %}
         {% for ticket in tickets %}
         <div class="asked-reviews">
             <div class="asked-review-content">
@@ -49,9 +74,9 @@
                 </div>
                 <h5>{{ ticket.title }} - Author</h5>
                 <p>{{ ticket.description }}</p>
-                <img src="" alt="">{{ ticket.image }}
+                <img src="{{ ticket.image }}" alt="couverture du livre {{ ticket.title }}" style="max-width:80%">
                 <div class="asked-review-button">
-                    <button type="submit" class="btn btn-primary" id="createReviewFromTicketButton" value="{{ticket.id}}">Créer une critique</button>
+                    <button type="submit" class="btn btn-primary" onclick="window.location='/flow/create_review_from_ticket/{{ ticket.id }}/';" value="{{ticket.id}}">Créer une critique</button>
                 </div>
             </div>
         </div>
