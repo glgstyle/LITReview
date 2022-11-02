@@ -18,9 +18,9 @@
                             <h2>{{ ticket.user }} a demandé une critique</h2>
                             <h3>{{ ticket.time_created | date:'H:i, d F Y' }}</h3>
                         </div>
-                        <h5>{{ ticket.title }} - Author</h5>
+                        <h5>{{ ticket.title }} - {{ ticket.author }}</h5>
                         <p>{{ ticket.description }}</p>
-                        <img src="{{ ticket.image }}" alt="couverture du livre {{ review.ticket.title }}" width="150px" height="150px">
+                        <img src="/{{ ticket.image }}" alt="couverture du livre {{ review.ticket.title }}" style="max-width:80%">
                     </div>
                 </div>
             <div class="review-text-container">
@@ -59,7 +59,7 @@
                         <h3>Commentaire</h3>
                         <div class="comment">
                             <div class="input-group mb-3">
-                                {{ form.body }}-->
+                                {{ form.body }}
                             </div>
                         </div>
                         <div class="send">

@@ -7,11 +7,16 @@
     {% block content %}
     <main>
         <h1>Suivre d'autres utilisateurs</h1>
+        <!-- {{ form }} -->
         <div class="follow-new-user">
-            <div class="input-group mb-3">
-                <input type="text" id="first-input" class="form-control" placeholder="Nom d'utilisateur" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <!-- <input type="text" id="first-input" class="form-control" placeholder="Nom d'utilisateur" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
+                    <!-- {{ form.followed_user }} -->
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                </div>
+            </form>
         </div>
         <h2>Abonnements</h2>
         <div class="followed-users">

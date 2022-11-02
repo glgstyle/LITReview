@@ -3,18 +3,18 @@ from django import views
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from review.forms.subscriptionForm import SubscriptionForm
 from review.models import Ticket, Review
 from .forms.ticketForm import TicketForm
 from .forms.reviewForm import ReviewForm
 from django.contrib import messages
-from django.shortcuts import get_object_or_404
 
 
 @login_required
 def flow(request):
     """View function for flow page of application."""
-    tickets = Ticket.objects.all()
-    reviews = Review.objects.filter(user=request.user)
+    tickets = Ticket.objects.all().order_by('time_created').reverse()
+    reviews = Review.objects.filter(user=request.user).order_by('time_created').reverse()
     return render(request, "flow.html", {'review': Review, 'ticket': Ticket, 'tickets': tickets, 'reviews': reviews})
 
 def createTicket(request):
@@ -72,7 +72,13 @@ def createReviewFromTicket(request, ticket_id):
 
 def subscription(request):
     """View function for subscription page of application."""
-    return render(request, "subscription.html")
+    form = SubscriptionForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            userFollow = form.save(commit=False)
+            userFollow.user = request.user
+            
+    return render(request, "subscription.html",{'form': form})
 
 def displayYourPosts(request):
     """View function for displayYourPosts page of application."""
