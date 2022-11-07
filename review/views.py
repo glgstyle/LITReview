@@ -3,19 +3,53 @@ from django import views
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from review.forms.subscriptionForm import SubscriptionForm
 from review.models import Ticket, Review
 from .forms.ticketForm import TicketForm
 from .forms.reviewForm import ReviewForm
 from django.contrib import messages
+from authentication.models import UserFollows
+from django.db import IntegrityError
 
+from itertools import chain
+from django.db.models import CharField, Value
+from django.shortcuts import render
 
 @login_required
 def flow(request):
-    """View function for flow page of application."""
-    tickets = Ticket.objects.all().order_by('time_created').reverse()
-    reviews = Review.objects.filter(user=request.user).order_by('time_created').reverse()
-    return render(request, "flow.html", {'review': Review, 'ticket': Ticket, 'tickets': tickets, 'reviews': reviews})
+    reviews = get_users_viewable_reviews(request.user)
+    # returns queryset of reviews
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+
+    tickets = get_users_viewable_tickets(request.user) 
+    # returns queryset of tickets
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+
+    # combine and sort the two types of posts
+    posts = sorted(chain(reviews, tickets), 
+        key=lambda post: post.time_created, 
+        reverse=True
+    )
+    # return render(request, 'flow.html', context={'posts': posts})
+    return render(request, 'flow.html', {'tickets': tickets, 'reviews': reviews})
+
+
+def get_users_viewable_reviews(review_user):
+    reviews = Review.objects.filter(user=review_user).order_by('time_created')
+    return reviews
+
+def get_users_viewable_tickets(ticket_user):
+    tickets = Ticket.objects.filter(user=ticket_user).order_by('time_created')
+    return tickets
+
+# @login_required
+# def flow(request):
+#     """View function for flow page of application."""
+#     # tickets = Ticket.objects.all().order_by('time_created').reverse()
+#     tickets = Ticket.objects.all().order_by('time_created').reverse()
+#     reviews = Review.objects.filter(user=request.user).order_by('time_created').reverse()  
+#     return render(request, "flow.html", {'tickets': tickets, 'reviews': reviews})
 
 def createTicket(request):
     """View function for createTicket page of application."""
@@ -57,11 +91,19 @@ def createReviewFromTicket(request, ticket_id):
             review = form.save(commit=False)
             review.ticket = ticket
             review.user = request.user
+            # existing_review = Review.objects.filter(ticket=ticket.pk).exists()
+            # # check if this ticket already exists
+            # if existing_review:
+            #     messages.error(request, 'Désolé un ticket a déjà été crée sur ce livre.', extra_tags='name')
+            # else:
+            #     review.save()
+
             # existing_review = Ticket.objects.filter(title=ticket.title).exists()
             # check if this ticket already exists
             # if existing_ticket:
             #     messages.error(request, 'Désolé un ticket a déjà été crée sur ce livre.', extra_tags='name')
             # else:
+
             review.save()
             # redirect to a new URL:
             return HttpResponseRedirect('/flow/')
@@ -77,21 +119,85 @@ def subscription(request):
         if form.is_valid():
             userFollow = form.save(commit=False)
             userFollow.user = request.user
-            
+            # get the name of user to follow
+            user_we_want_to_follow = userFollow.followed_user
+            # search in database if user to follow exists
+            existing_user = User.objects.filter(username=user_we_want_to_follow, is_active=True).exists()
+            # search in database which user already followed by this user
+            user_followed = UserFollows.objects.filter(user=request.user, followed_user=user_we_want_to_follow).exists()
+            try:
+                # if user to follow exists record it
+                if not existing_user:
+                    messages.error(request, "Cet utilisateur n'existe pas, veuillez recommencer.", extra_tags='name')
+                # if we already follow him
+                elif user_followed:
+                    messages.error(request, 'Vous suivez déjà cet utilisateur.', extra_tags='name')
+                else:
+                    search_user = User.objects.get(username=user_we_want_to_follow)
+                    userFollow.followed_user = search_user
+                    userFollow.save()
+                    messages.error(request, "cet utilisateur à été ajouté à votre liste.", extra_tags='name')
+            # if user try to follow himself
+            except IntegrityError:
+                messages.error(request, 'Vous ne pouvez pas suivre votre propre compte.', extra_tags='name')
+        else:
+            form = SubscriptionForm() 
     return render(request, "subscription.html",{'form': form})
 
 def displayYourPosts(request):
     """View function for displayYourPosts page of application."""
-    return render(request, "posts.html")
+    tickets = Ticket.objects.all().order_by('time_created').reverse()
+    reviews = Review.objects.filter(user=request.user).order_by('time_created').reverse()  
+    return render(request, "posts.html", {'tickets': tickets, 'reviews': reviews})
 
-def modifyYourReview(request):
+def modifyYourReview(request, review_id):
     """View function for modifyYourReview page of application."""
-    return render(request, "modify-review.html")
+    review_to_modify = Review.objects.get(pk=review_id)
+    form = ReviewForm(request.POST, instance=review_to_modify)
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.ticket = review_to_modify.ticket
+            review.user = request.user
+            review.save()
+            # redirect to a new URL:
+            return HttpResponseRedirect('/flow/display_your_posts/')
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ReviewForm(instance=review_to_modify)
+    return render(request, "modify-review.html", {'review':review_to_modify, 'form':form})
 
-def modifyYourTicket(request):
+def deleteReview(request, review_id):
+    review = Review.objects.get(pk=review_id)
+    if request.method == 'POST':
+        review.delete()
+        return HttpResponseRedirect('/flow/confirmation/')
+    return render(request, "delete.html", {'review':review})
+        
+def modifyYourTicket(request, ticket_id):
     """View function for modifyYourTicket page of application."""
-    return render(request, "modify-ticket.html")
+    ticket_to_modify = Ticket.objects.get(pk=ticket_id)
+    form = TicketForm(request.POST, request.FILES, instance=ticket_to_modify)
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        if form.is_valid():
+            ticket = form.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
+            # redirect to a new URL:
+            return HttpResponseRedirect('/flow/display_your_posts/')
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = TicketForm(instance=ticket_to_modify)
+    return render(request, "modify-ticket.html", {'ticket':ticket_to_modify, 'form':form})
 
+def deleteTicket(request, ticket_id):
+    ticket = Ticket.objects.get(pk=ticket_id)
+    if request.method == 'POST':
+        ticket.delete()
+        return HttpResponseRedirect('/flow/confirmation/')
+    return render(request, "delete.html", {'ticket':ticket})
 # class  SampleView (views):
 #      def  get_context_data ( self , ** kwargs ):
 #          ticket = Ticket.objects.get(id=kwargs['user_id'])

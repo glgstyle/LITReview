@@ -17,7 +17,7 @@ class ReviewForm(forms.ModelForm):
                 'class': "form-control",
                 'id': "review-title",
                 'autocomplete': 'OFF',
-                'required': 'required'
+                'required': 'required',
                 }),
             'body': forms.Textarea(attrs={
                 'class': "form-control", 

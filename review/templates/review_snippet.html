@@ -13,9 +13,9 @@
         <div class="your-reviews">
             <div class="reviews-buttons">
                 <!-- <button type="submit" class="btn btn-primary">Demander une critique</button> -->
-                <a class="btn btn-primary"href="/flow/create_ticket/">Demander une critique</a>
+                <a class="btn btn-primary"href="/flow/create_ticket/">Créer une critique</a>
                 <!-- <button type="submit" class="btn btn-primary" href="/flow/create_review/">Créer une critique</button> -->
-                <a class="btn btn-primary"href="/flow/create_review/">Créer une critique</a>
+                <a class="btn btn-primary"href="/flow/create_review/">Demander une critique</a>
             </div>
             {% for post in posts %}
                 {% if post.content_type == 'TICKET' %} 
@@ -71,22 +71,6 @@
                     <figure>
                         <img src="{{ review.ticket.image }}" alt="couverture du livre {{ review.ticket.title }}" style="max-width:80%">
                     </figure>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-        {% for ticket in tickets %}
-        <div class="asked-reviews">
-            <div class="asked-review-content">
-                <div class="asked-review-title-and-date">
-                    <h2>{{ ticket.user }} a demandé une critique numéro {{ ticket.id }}</h2>
-                    <h3>{{ ticket.time_created | date:'H:i, d F Y' }}</h3>
-                </div>
-                <h5>{{ ticket.title | capfirst }} - {{ ticket.author }}</h5>
-                <p>{{ ticket.description }}</p>
-                <img src="{{ ticket.image }}" alt="couverture du livre {{ ticket.title }}" style="max-width:80%">
-                <div class="asked-review-button">
-                    <button type="submit" class="btn btn-primary" onclick="window.location='/flow/create_review_from_ticket/{{ ticket.id }}/';" value="{{ticket.id}}">Créer une critique</button>
                 </div>
             </div>
         </div>

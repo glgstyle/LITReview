@@ -38,24 +38,14 @@
                         <div class="rate">
                             <!-- <h4>Excellent</h4><span>-</span> -->
                             <div class="rating" id="star-rate"> 
-                                <input type="radio" name="star-rating" value="5" id="5"><label for="5">☆</label> 
-                                <input type="radio" name="star-rating" value="4" id="4"><label for="4">☆</label>
-                                <input type="radio" name="star-rating" value="3" id="3"><label for="3">☆</label> 
-                                <input type="radio" name="star-rating" value="2" id="2"><label for="2">☆</label> 
-                                <input type="radio" name="star-rating" value="1" id="1"><label for="1">☆</label>
+                                <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="5" id="5"><label for="5">☆</label> 
+                                <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="4" id="4"><label for="4">☆</label>
+                                <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="3" id="3"><label for="3">☆</label> 
+                                <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="2" id="2"><label for="2">☆</label> 
+                                <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="1" id="1"><label for="1">☆</label>
                             </div>
                         </div>
                         <div hidden="hidden">{{ form.rating }}</div>
-                        <script type="text/javascript">
-                            function setStarsValue() {
-                                let ele = document.getElementsByName('star-rating');
-                                for(i = 0; i < ele.length; i++) {
-                                    if(ele[i].checked)
-                                    myValue = ele[i].value;
-                                    document.getElementById('result').setAttribute('value', myValue)
-                                }
-                            }
-                        </script>
                         <h3>Commentaire</h3>
                         <div class="comment">
                             <div class="input-group mb-3">
@@ -63,7 +53,7 @@
                             </div>
                         </div>
                         <div class="send">
-                            <button class="btn btn-primary" type="submit" id="send-review-from-ticket" onclick="setStarsValue()";>Envoyer</button>
+                            <button class="btn btn-primary" type="submit">Envoyer</button>
                         </div>
                     </form>
                 </div>

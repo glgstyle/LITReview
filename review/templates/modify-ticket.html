@@ -7,27 +7,36 @@
     {% block content %}
         <main>
             <h1>Modifier votre ticket</h1>
-            <div class="book-ticket-content">
-                <h2>Titre</h2>
-                <div class="title">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="book-title" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="book-ticket-content">
+                    <h2>Titre</h2>
+                    <div class="title">
+                        <div class="input-group mb-3">
+                            {{ form.title }}
+                        </div>
+                    </div>
+                    <h2>Auteur</h2>
+                    <div class="author">
+                        <div class="input-group mb-3">
+                            {{ form.author }}
+                        </div>
+                    </div>
+                    <h3>Description</h3>
+                    <div class="description">
+                        <div class="input-group mb-3">
+                            {{ form.description }}
+                        </div>
+                    </div>
+                    <h4>Image</h4>
+                    <div class="image">
+                        {{ form.image }}
                     </div>
                 </div>
-                <h3>Description</h3>
-                <div class="description">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="book-description" aria-label="Recipient's username" aria-describedby="button-addon2">
-                    </div>
+                <div class="send">
+                    <input class="btn btn-primary" type="submit" id="button-send"></button>
                 </div>
-                <h4>Image</h4>
-                <div class="image">
-                    <button class="btn btn-primary" type="button" id="button-uppload">Télécharger le fichier</button>
-                </div>
-            </div>
-            <div class="send">
-                <button class="btn btn-primary" type="button" id="button-upload">Envoyer</button>
-            </div>
+            </form>
         </main>
     {% endblock %}
 </body>

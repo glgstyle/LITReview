@@ -1,9 +1,9 @@
-document.getElementById("createReviewButton").onclick = function redirectToCreateReview() {
-    location.href = "/flow/create_review/";
-    };
-document.getElementById("createTicketButton").onclick = function redirectToCreateTicket() {
-    location.href = "/flow/create_ticket/";
-    };
+// document.getElementById("createReviewButton").onclick = function redirectToCreateReview() {
+//     location.href = "/flow/create_review/";
+//     };
+// document.getElementById("createTicketButton").onclick = function redirectToCreateTicket() {
+//     location.href = "/flow/create_ticket/";
+//     };
 
 // Page flow
 // generate url with ticket_id value
@@ -47,13 +47,20 @@ document.getElementById("createTicketButton").onclick = function redirectToCreat
 
 // Page create_review_from_ticket
 // set the star value in form on click submit
-document.getElementById("send-review-from-ticket").onclick = function setStarsValue() {
-    let ele = document.getElementsByName('star-rating');
-    for(i = 0; i < ele.length; i++) {
-        if(ele[i].checked & ele[i].value != 6)
-        myValue = ele[i].value;
-        else if (ele[i].value == 6)
-        myValue = 5;
-        document.getElementById('result').setAttribute('value', myValue)
+// document.getElementById("send-review-from-ticket").onclick = function setStarsValue() {
+//     let elements = document.getElementsByName('star-rating');
+//     for(i = 0; i < elements.length; i++) {
+//         if(elements[i].checked & ele[i].value != 6)
+//         myValue = elemets[i].value;
+//         else if (elements[i].value == 6)
+//         myValue = 5;
+//         document.getElementById('result').setAttribute('value', myValue)
+//     }
+// }
+
+function setStarsValue($event) {
+    console.log("input target",$event.target)
+    console.log("input target",$event.target.value)
+    document.getElementById('result').setAttribute('value', $event.target.value)
     }
-}
+// }
