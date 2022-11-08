@@ -20,10 +20,11 @@
         <div class="follow-new-user">
             <form action="" method="post">
                 {% csrf_token %}
-                {{ form }} 
+                
                 <div class="input-group mb-3">
                     <!-- <input type="text" id="first-input" class="form-control" placeholder="Nom d'utilisateur" aria-label="Recipient's username" aria-describedby="button-addon2">  -->
-                     <!-- {{ form.followed_user }} -->
+                     {{ form.followed_user }}
+                     <!-- {{ form }}  -->
                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
                 </div>
             </form>
