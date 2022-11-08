@@ -31,8 +31,8 @@ def flow(request):
         key=lambda post: post.time_created, 
         reverse=True
     )
-    # return render(request, 'flow.html', context={'posts': posts})
-    return render(request, 'flow.html', {'tickets': tickets, 'reviews': reviews})
+    return render(request, 'flow.html', context={'posts': posts})
+    # return render(request, 'flow.html', {'tickets': tickets, 'reviews': reviews})
 
 
 def get_users_viewable_reviews(review_user):
@@ -114,15 +114,21 @@ def createReviewFromTicket(request, ticket_id):
 
 def subscription(request):
     """View function for subscription page of application."""
-    form = SubscriptionForm(request.POST)
+    print('Début')
     if request.method == 'POST':
+        form = SubscriptionForm(request.POST)
+        print('dans post')
         if form.is_valid():
-            userFollow = form.save(commit=False)
+            print('isvalid')
+            userFollowForm = form.save(commit=False)
+            userFollow = UserFollows()
             userFollow.user = request.user
             # get the name of user to follow
-            user_we_want_to_follow = userFollow.followed_user
+            user_we_want_to_follow = userFollowForm.followed_user
+            print(user_we_want_to_follow)
             # search in database if user to follow exists
-            existing_user = User.objects.filter(username=user_we_want_to_follow, is_active=True).exists()
+            existing_user = User.objects.filter(folowed_user__username=user_we_want_to_follow, is_active=True).exists()
+            # folowed_user__username=user_we_want_to_follow
             # search in database which user already followed by this user
             user_followed = UserFollows.objects.filter(user=request.user, followed_user=user_we_want_to_follow).exists()
             try:
@@ -141,7 +147,10 @@ def subscription(request):
             except IntegrityError:
                 messages.error(request, 'Vous ne pouvez pas suivre votre propre compte.', extra_tags='name')
         else:
-            form = SubscriptionForm() 
+            print('is not valid', form)
+    else: # if request get
+        form = SubscriptionForm() 
+        print('ce form', form)
     return render(request, "subscription.html",{'form': form})
 
 def displayYourPosts(request):

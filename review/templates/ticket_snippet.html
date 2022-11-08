@@ -10,6 +10,11 @@
 <body>
     {% block content %}
     <section class="flow">
+        <div class="your-reviews">
+            <!-- <div class="reviews-buttons">
+                <a class="btn btn-primary"href="/flow/create_ticket/">Demander une critique</a>
+                <a class="btn btn-primary"href="/flow/create_review/">Créer une critique</a>
+            </div> -->
         {% for ticket in tickets %}
         <div class="asked-reviews">
             <div class="asked-review-content">
@@ -27,5 +32,6 @@
         </div>
         {% endfor %}
     </section> 
+    <script src="{% static 'js/script.js' %}"></script>
     {% endblock %}   
 </body>

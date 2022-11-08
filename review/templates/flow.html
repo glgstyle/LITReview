@@ -25,12 +25,12 @@
                 {% endif %}
             {% endfor %}
 
-            {% for review in reviews %}
+            <!-- {% for review in reviews %}
             <div class="review-content">
                 <div class="review-title-and-date">
                     <h2>{{ review.user | capfirst}}, Vous avez publié une critique</h2>
                     <h3>{{ review.time_created | date:'H:i, d F Y' }}</h3>
-                </div>
+                </div> -->
                 <!-- <script type="text/javascript">
                     function setStarsValue() {
                         let review_value = document.getElementsByClassName('hidden_rating');
@@ -48,10 +48,8 @@
                     }
                     window.onload = setStarsValue()
                 </script> -->
-                <div class="rate">
+                <!-- <div class="rate">
                     <h4>{{ review.headline| capfirst }}</h4><span>-</span>
-                    <!-- <h4>{{ ticket.title }}</h4><span>-</span> -->
-                    <!-- <div hidden class="hidden_rating" value="{{ review.rating }}">{{ review.rating }}</div> -->
                     <div class="hidden_rating" value="{{ review.rating }}">{{ review.rating }}</div>
                     <div class="rating" id="rat"> 
                         <input type="checkbox" name="star-rating" value="5" id="5"><label {% if review.rating > 4 %} checked="checked" {% endif %} for="5">☆</label> 
@@ -62,19 +60,16 @@
                     </div>
                 </div>
                 <blockquote>{{ review.body }}</blockquote>
-                <!-- <blockquote>{{ ticket.description }}</blockquote> -->
                 <div class="ticket">
                     <h4>{{ review.ticket.user }}</h4>
-                    <!-- <h4>Ticket - {{ ticket.user }}</h4> -->
-
                     <h5>{{ review.ticket.title }} - {{ review.ticket.author }}</h5>
                     <figure>
                         <img src="{{ review.ticket.image }}" alt="couverture du livre {{ review.ticket.title }}" style="max-width:80%">
                     </figure>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
         {% for ticket in tickets %}
         <div class="asked-reviews">
             <div class="asked-review-content">
@@ -90,7 +85,7 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
+        {% endfor %} -->
         <div class="posted-reviews">
             <div class="review-content">
                 <div class="review-title-and-date">

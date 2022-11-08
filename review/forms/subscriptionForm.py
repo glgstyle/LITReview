@@ -1,41 +1,25 @@
 
 
 from django import forms
-from authentication.models import UserFollows
+# from authentication.models import UserFollows
 
 
-class SubscriptionForm(forms.ModelForm):
+class SubscriptionForm(forms.Form):
     class Meta:
-            model = UserFollows
-            fields = ['followed_user']
-            widgets = {
-            'followed_user': forms.TextInput(attrs={
-                'class': "form-control",
+            # model = UserFollows
+            # base_fields = ['followed_user']
+            followed_user = forms.CharField(label='Utilisateur', max_length=100, widget=forms.TextInput(attrs={'class': "form-control",
                 'id': 'first-input',
                 'placeholder': "Nom d'utilisateur",
                 'aria-label': "Recipient's username",
-                'aria-describedby': 'button-addon2'
-                })
-            }
-
-            # 'author': forms.TextInput(attrs={
+                'aria-describedby': 'button-addon2'}))
+            # widgets = {
+            # 'followed_user': forms.TextInput(attrs={
             #     'class': "form-control",
-            #     'autocomplete': 'OFF',
-            #     'required': 'required'
-            #     }),
-            # 'description': forms.Textarea(attrs={
-            #     'class': "form-control", 
-            #     'id': 'book-description',
-            #     'autocomplete': 'OFF'
-            #     }),
-            # 'image': forms.FileInput(attrs={
-            #         # 'class': 'btn btn-primary',
-            #         'type': 'file',
-            #         'id': 'button-upload',
-            #         'style':'color:transparent;',
-            #         'name': 'button-uppload',
-            #         'label':'Télécharger le fichier',
-            #         'placeholder':'Télécharger le fichier',
-
-                # })
+            #     'id': 'first-input',
+            #     'placeholder': "Nom d'utilisateur",
+            #     'aria-label': "Recipient's username",
+            #     'aria-describedby': 'button-addon2'
+            #     })
             # }
+            

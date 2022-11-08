@@ -11,20 +11,10 @@
     {% block content %}
     <section class="flow">
         <div class="your-reviews">
-            <div class="reviews-buttons">
-                <!-- <button type="submit" class="btn btn-primary">Demander une critique</button> -->
-                <a class="btn btn-primary"href="/flow/create_ticket/">Créer une critique</a>
-                <!-- <button type="submit" class="btn btn-primary" href="/flow/create_review/">Créer une critique</button> -->
-                <a class="btn btn-primary"href="/flow/create_review/">Demander une critique</a>
-            </div>
-            {% for post in posts %}
-                {% if post.content_type == 'TICKET' %} 
-                    {% include 'ticket_snippet.html' %}
-                {% elif post.content_type == 'REVIEW' %}
-                    {% include 'review_snippet.html' %}
-                {% endif %}
-            {% endfor %}
-
+            <!-- <div class="reviews-buttons">
+                <a class="btn btn-primary"href="/flow/create_ticket/">Demander une critique</a>
+                <a class="btn btn-primary"href="/flow/create_review/">Créer une critique</a>
+            </div> -->
             {% for review in reviews %}
             <div class="review-content">
                 <div class="review-title-and-date">
@@ -75,31 +65,6 @@
             </div>
         </div>
         {% endfor %}
-        <div class="posted-reviews">
-            <div class="review-content">
-                <div class="review-title-and-date">
-                    <h2>username a publié une critique</h2>
-                    <h3>13:14, 26 août 2020</h3>
-                </div>
-                <div class="rate">
-                    <h4>Excellent</h4><span>-</span>
-                    <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-                    </div>
-                </div>
-                <div class="ticket">
-                    <h4>Ticket - username</h4><div class="container">
-                        <span id="rateMe1"></span>
-                      </div>
-                    <h5>Book title - Author</h5>
-                    <figure>
-                        <img src="" alt="">
-                    </figure>
-                    <div class="asked-review-button">
-                        <button type="submit" class="btn btn-primary">Créer une critique</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section> 
     <script src="{% static 'js/script.js' %}"></script>
     {% endblock %}   
