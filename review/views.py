@@ -103,6 +103,7 @@ def createReviewFromTicket(request, ticket_id):
 def subscription(request):
     """View function for subscription page of application."""
     followed_users = get_followed_users(request)
+    followers = get_followed_by(request)
     if request.method == 'POST':
         form = SubscriptionForm(request.POST)
         if form.is_valid():
@@ -128,18 +129,24 @@ def subscription(request):
                 else:
                     userFollow.followed_user = get_user_to_follow
                     userFollow.save()
-                    messages.error(request, "cet utilisateur à été ajouté à votre liste.", extra_tags='name')
+                    messages.success(request, "Cet utilisateur à été ajouté à votre liste.", extra_tags='name')
             except IntegrityError:
                 messages.error(request, 'Vous ne pouvez pas suivre votre propre compte.', extra_tags='name')
+            except TypeError:
+                messages.error(request, 'Vous suivez déjà cet utilisateur.', extra_tags='name')
         else:
             print('is not valid', form)
     else: # if a GET (or any other method) we'll create a blank form
         form = SubscriptionForm() 
-    return render(request, "subscription.html",{'form': form, 'followed_users': followed_users})
+    return render(request, "subscription.html",{'form': form, 'followed_users': followed_users, 'followers': followers})
 
 def get_followed_users(request):
     followed_users = UserFollows.objects.filter(user=request.user)
     return followed_users
+
+def get_followed_by(request):
+    followed_by = UserFollows.objects.filter(followed_user=request.user)
+    return followed_by
 
 def unfollow(request, user_to_unfollow_id):
     followed_user = UserFollows.objects.get(pk=user_to_unfollow_id)
