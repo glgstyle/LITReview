@@ -102,6 +102,7 @@ def createReviewFromTicket(request, ticket_id):
 
 def subscription(request):
     """View function for subscription page of application."""
+    followed_users = get_followed_users(request)
     if request.method == 'POST':
         form = SubscriptionForm(request.POST)
         if form.is_valid():
@@ -134,7 +135,18 @@ def subscription(request):
             print('is not valid', form)
     else: # if a GET (or any other method) we'll create a blank form
         form = SubscriptionForm() 
-    return render(request, "subscription.html",{'form': form})
+    return render(request, "subscription.html",{'form': form, 'followed_users': followed_users})
+
+def get_followed_users(request):
+    followed_users = UserFollows.objects.filter(user=request.user)
+    return followed_users
+
+def unfollow(request, user_to_unfollow_id):
+    followed_user = UserFollows.objects.get(pk=user_to_unfollow_id)
+    if request.method == 'POST':
+        followed_user.delete()
+        return HttpResponseRedirect('/flow/confirmation/')
+    return render(request, "delete.html", {'followed_user':followed_user})
 
 def displayYourPosts(request):
     """View function for displayYourPosts page of application."""
