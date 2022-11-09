@@ -1,4 +1,3 @@
-
 from django import views
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
@@ -11,10 +10,8 @@ from .forms.reviewForm import ReviewForm
 from django.contrib import messages
 from authentication.models import UserFollows
 from django.db import IntegrityError
-
 from itertools import chain
 from django.db.models import CharField, Value
-from django.shortcuts import render
 
 @login_required
 def flow(request):
@@ -31,9 +28,8 @@ def flow(request):
         key=lambda post: post.time_created, 
         reverse=True
     )
+    tickets = Ticket.objects.all().order_by('time_created').reverse()
     return render(request, 'flow.html', context={'posts': posts})
-    # return render(request, 'flow.html', {'tickets': tickets, 'reviews': reviews})
-
 
 def get_users_viewable_reviews(review_user):
     reviews = Review.objects.filter(user=review_user).order_by('time_created')
@@ -42,14 +38,6 @@ def get_users_viewable_reviews(review_user):
 def get_users_viewable_tickets(ticket_user):
     tickets = Ticket.objects.filter(user=ticket_user).order_by('time_created')
     return tickets
-
-# @login_required
-# def flow(request):
-#     """View function for flow page of application."""
-#     # tickets = Ticket.objects.all().order_by('time_created').reverse()
-#     tickets = Ticket.objects.all().order_by('time_created').reverse()
-#     reviews = Review.objects.filter(user=request.user).order_by('time_created').reverse()  
-#     return render(request, "flow.html", {'tickets': tickets, 'reviews': reviews})
 
 def createTicket(request):
     """View function for createTicket page of application."""
@@ -137,7 +125,6 @@ def subscription(request):
                 elif user_followed:
                     messages.error(request, 'Vous suivez déjà cet utilisateur.', extra_tags='name')
                 else:
-                    # search_user = User.objects.get(username=user_to_follow)
                     userFollow.followed_user = get_user_to_follow
                     userFollow.save()
                     messages.error(request, "cet utilisateur à été ajouté à votre liste.", extra_tags='name')
@@ -145,7 +132,7 @@ def subscription(request):
                 messages.error(request, 'Vous ne pouvez pas suivre votre propre compte.', extra_tags='name')
         else:
             print('is not valid', form)
-    else: # if request get
+    else: # if a GET (or any other method) we'll create a blank form
         form = SubscriptionForm() 
     return render(request, "subscription.html",{'form': form})
 
@@ -203,35 +190,5 @@ def deleteTicket(request, ticket_id):
         ticket.delete()
         return HttpResponseRedirect('/flow/confirmation/')
     return render(request, "delete.html", {'ticket':ticket})
-# class  SampleView (views):
-#      def  get_context_data ( self , ** kwargs ):
-#          ticket = Ticket.objects.get(id=kwargs['user_id'])
 
-# # Image_book
-
-# def book_image_view(request):
-  
-#     if request.method == 'POST':
-#         form = makeATicketForm(request.POST, request.FILES)
-  
-#         if form.is_valid():
-#             form.save()
-#             return redirect('success')
-#     else:
-#         form = makeATicketForm()
-#     return render(request, 'hotel_image_form.html', {'form' : form})
-  
-  
-# def success(request):
-#     return HttpResponse('successfully uploaded')
-
-# Post a review
-
-# def postReview():
-#     review = Review()
-
-# Post a ticket
-
-# def postTicket():
-#     ticket = Ticket()
     

@@ -12,80 +12,16 @@
     <section class="flow">
         <div class="your-reviews">
             <div class="reviews-buttons">
-                <!-- <button type="submit" class="btn btn-primary">Demander une critique</button> -->
                 <a class="btn btn-primary"href="/flow/create_ticket/">Demander une critique</a>
-                <!-- <button type="submit" class="btn btn-primary" href="/flow/create_review/">Créer une critique</button> -->
                 <a class="btn btn-primary"href="/flow/create_review/">Créer une critique</a>
             </div>
             {% for post in posts %}
-                {% if post.content_type == 'TICKET' %} 
-                    {% include 'ticket_snippet.html' %}
+                {% if post.content_type == 'TICKET' %}
+                    {% include 'ticket_snippet.html' with ticket=post %}
                 {% elif post.content_type == 'REVIEW' %}
-                    {% include 'review_snippet.html' %}
+                    {% include 'review_snippet.html' with review=post %}
                 {% endif %}
             {% endfor %}
-
-            <!-- {% for review in reviews %}
-            <div class="review-content">
-                <div class="review-title-and-date">
-                    <h2>{{ review.user | capfirst}}, Vous avez publié une critique</h2>
-                    <h3>{{ review.time_created | date:'H:i, d F Y' }}</h3>
-                </div> -->
-                <!-- <script type="text/javascript">
-                    function setStarsValue() {
-                        let review_value = document.getElementsByClassName('hidden_rating');
-                        // console.log(review_value);
-                        let ele = document.getElementsByName('star-rating');
-                        for (i = 0, j = 0; i < review_value.length, j < ele.length; i++, j++){
-                            valeur = review_value.item(i).innerHTML;
-                            console.log(valeur);
-                            // console.log(review_value[i])
-                            if (ele[j].value == valeur){
-                                ele[j].setAttribute("checked","checked");
-                                // rendre impossible à checker après
-                            }
-                        }
-                    }
-                    window.onload = setStarsValue()
-                </script> -->
-                <!-- <div class="rate">
-                    <h4>{{ review.headline| capfirst }}</h4><span>-</span>
-                    <div class="hidden_rating" value="{{ review.rating }}">{{ review.rating }}</div>
-                    <div class="rating" id="rat"> 
-                        <input type="checkbox" name="star-rating" value="5" id="5"><label {% if review.rating > 4 %} checked="checked" {% endif %} for="5">☆</label> 
-                        <input type="checkbox" name="star-rating" value="4" id="4"><label {% if review.rating > 3 %} checked="checked" {% endif %} for="4">☆</label> 
-                        <input type="checkbox" name="star-rating" value="3" id="3"><label {% if review.rating > 2 %} checked="checked" {% endif %} for="3">☆</label> 
-                        <input type="checkbox" name="star-rating" value="2" id="2"><label {% if review.rating > 1 %} checked="checked" {% endif %} for="2">☆</label> 
-                        <input type="checkbox" name="star-rating" value="1" id="1"><label {% if review.rating > 0 %} checked="checked" {% endif %} for="1">☆</label>
-                    </div>
-                </div>
-                <blockquote>{{ review.body }}</blockquote>
-                <div class="ticket">
-                    <h4>{{ review.ticket.user }}</h4>
-                    <h5>{{ review.ticket.title }} - {{ review.ticket.author }}</h5>
-                    <figure>
-                        <img src="{{ review.ticket.image }}" alt="couverture du livre {{ review.ticket.title }}" style="max-width:80%">
-                    </figure>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        {% for ticket in tickets %}
-        <div class="asked-reviews">
-            <div class="asked-review-content">
-                <div class="asked-review-title-and-date">
-                    <h2>{{ ticket.user }} a demandé une critique numéro {{ ticket.id }}</h2>
-                    <h3>{{ ticket.time_created | date:'H:i, d F Y' }}</h3>
-                </div>
-                <h5>{{ ticket.title | capfirst }} - {{ ticket.author }}</h5>
-                <p>{{ ticket.description }}</p>
-                <img src="{{ ticket.image }}" alt="couverture du livre {{ ticket.title }}" style="max-width:80%">
-                <div class="asked-review-button">
-                    <button type="submit" class="btn btn-primary" onclick="window.location='/flow/create_review_from_ticket/{{ ticket.id }}/';" value="{{ticket.id}}">Créer une critique</button>
-                </div>
-            </div>
-        </div>
-        {% endfor %} -->
         <div class="posted-reviews">
             <div class="review-content">
                 <div class="review-title-and-date">
