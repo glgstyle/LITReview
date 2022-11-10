@@ -20,12 +20,16 @@
                     {% include 'ticket_snippet.html' with ticket=post %}
                 {% elif post.content_type == 'REVIEW' %}
                     {% include 'review_snippet.html' with review=post %}
+                {% elif post.content_type == 'FOLLOWED_USER_REVIEW' %}
+                    {% include 'followed_user_review_snippet.html' with followed_user_review=post %}
                 {% endif %}
             {% endfor %}
+        </div>
+        <!-- {% for followed_user in followed_users %}
         <div class="posted-reviews">
             <div class="review-content">
                 <div class="review-title-and-date">
-                    <h2>username a publié une critique</h2>
+                    <h2>{{ followed_user.followed_user }}</h2>
                     <h3>13:14, 26 août 2020</h3>
                 </div>
                 <div class="rate">
@@ -47,6 +51,7 @@
                 </div>
             </div>
         </div>
+        {% endfor %} -->
     </section> 
     <script src="{% static 'js/script.js' %}"></script>
     {% endblock %}   

@@ -31,7 +31,7 @@ urlpatterns = [
     path('unfollow/<int:user_to_unfollow_id>/', views.unfollow),
     path('modify_your_ticket/<int:ticket_id>/', views.modifyYourTicket),
     path('', views.flow, name='flux'),
-    path('confirmation/', views.confirmation),
+    path('confirmation/<str:return_url>/', views.confirmation),
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,

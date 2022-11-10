@@ -8,8 +8,10 @@
         <h5>{{ ticket.title | capfirst }} - {{ ticket.author }}</h5>
         <p>{{ ticket.description }}</p>
         <img src="/{{ ticket.image }}" alt="couverture du livre {{ ticket.title }}" style="max-width:80%">
-        <div class="asked-review-button">
-            <button type="submit" class="btn btn-primary" onclick="window.location='/flow/create_review_from_ticket/{{ ticket.id }}/';" value="{{ticket.id}}">Créer une critique</button>
-        </div>
+        {% if not ticket.is_reviewed %}
+            <div class="asked-review-button">
+                <button type="submit" class="btn btn-primary" onclick="window.location='/flow/create_review_from_ticket/{{ ticket.id }}/';" value="{{ticket.id}}">Créer une critique</button>
+            </div>
+        {% endif %}
     </div>
 </div>

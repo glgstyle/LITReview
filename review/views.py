@@ -18,17 +18,21 @@ def flow(request):
     reviews = get_users_viewable_reviews(request.user)
     # returns queryset of reviews
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+    # query of followed_users_reviews
+    followed_users = get_followed_users(request)
+    for usr in followed_users:
+        followed_users_reviews = get_users_viewable_reviews(usr.followed_user)
+        followed_users_reviews = followed_users_reviews.annotate(content_type=Value('FOLLOWED_USER_REVIEW', CharField()))
 
     tickets = get_users_viewable_tickets(request.user) 
     # returns queryset of tickets
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
 
     # combine and sort the two types of posts
-    posts = sorted(chain(reviews, tickets), 
+    posts = sorted(chain(reviews, tickets, followed_users_reviews), 
         key=lambda post: post.time_created, 
         reverse=True
     )
-    tickets = Ticket.objects.all().order_by('time_created').reverse()
     return render(request, 'flow.html', context={'posts': posts})
 
 def get_users_viewable_reviews(review_user):
@@ -60,9 +64,9 @@ def createTicket(request):
         form = TicketForm()
     return render(request, 'create-ticket.html', {'form': form})
 
-def confirmation(request):
+def confirmation(request, return_url):
     """View function for confirmation page of application."""
-    return render(request, "confirmation.html")
+    return render(request, "confirmation.html", {'return_url': return_url})
 
 def createReview(request):
     """View function for createReview page of application."""
@@ -70,7 +74,6 @@ def createReview(request):
 
 def createReviewFromTicket(request, ticket_id):
     """View function for createReviewFromTicket page of application."""
-    # ticket = get_object_or_404(Ticket, pk=ticket_id)
     ticket = Ticket.objects.get(pk=ticket_id)
     form = ReviewForm(request.POST)
     # if this is a POST request we need to process the form data
@@ -79,19 +82,6 @@ def createReviewFromTicket(request, ticket_id):
             review = form.save(commit=False)
             review.ticket = ticket
             review.user = request.user
-            # existing_review = Review.objects.filter(ticket=ticket.pk).exists()
-            # # check if this ticket already exists
-            # if existing_review:
-            #     messages.error(request, 'Désolé un ticket a déjà été crée sur ce livre.', extra_tags='name')
-            # else:
-            #     review.save()
-
-            # existing_review = Ticket.objects.filter(title=ticket.title).exists()
-            # check if this ticket already exists
-            # if existing_ticket:
-            #     messages.error(request, 'Désolé un ticket a déjà été crée sur ce livre.', extra_tags='name')
-            # else:
-
             review.save()
             # redirect to a new URL:
             return HttpResponseRedirect('/flow/')
@@ -152,7 +142,8 @@ def unfollow(request, user_to_unfollow_id):
     followed_user = UserFollows.objects.get(pk=user_to_unfollow_id)
     if request.method == 'POST':
         followed_user.delete()
-        return HttpResponseRedirect('/flow/confirmation/')
+        # return HttpResponseRedirect('/flow/confirmation/')
+        return confirmation(request, return_url="flow/subscription/")
     return render(request, "delete.html", {'followed_user':followed_user})
 
 def displayYourPosts(request):
@@ -183,7 +174,8 @@ def deleteReview(request, review_id):
     review = Review.objects.get(pk=review_id)
     if request.method == 'POST':
         review.delete()
-        return HttpResponseRedirect('/flow/confirmation/')
+        # return HttpResponseRedirect('/flow/confirmation/')
+        return confirmation(request, return_url="flow/")
     return render(request, "delete.html", {'review':review})
         
 def modifyYourTicket(request, ticket_id):
@@ -207,7 +199,8 @@ def deleteTicket(request, ticket_id):
     ticket = Ticket.objects.get(pk=ticket_id)
     if request.method == 'POST':
         ticket.delete()
-        return HttpResponseRedirect('/flow/confirmation/')
+        # return HttpResponseRedirect('/flow/confirmation/')
+        return confirmation(request, return_url="flow/")
     return render(request, "delete.html", {'ticket':ticket})
 
     

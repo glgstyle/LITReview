@@ -2,6 +2,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.conf import settings
 from django.db import models
 
+
 class Ticket(models.Model):
     # Your Ticket model definition goes here
     title = models.fields.CharField(max_length=128)
@@ -10,6 +11,14 @@ class Ticket(models.Model):
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images',null=True, blank=True)
     time_created = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def is_reviewed(self):    
+        review = Review.objects.filter(ticket=self)   
+        if review.count() >= 1:
+            return True
+        else:
+            return False
 
 class Review(models.Model):
     ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE)

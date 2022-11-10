@@ -39,6 +39,8 @@ def registration(request):
     return render(request, 'registration.html', {'form': form})
     
 def login_page(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/flow/')
     form = loginForm()
     if request.method == 'POST':
         form = loginForm(request.POST)
@@ -60,7 +62,7 @@ def login_page(request):
 def logout_user(request):
     logout(request)
     # Redirect back to index page.
-    return redirect('accueil')
+    return redirect('/')
 
 # # Image_book
 
