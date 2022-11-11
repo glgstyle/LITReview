@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from authentication import views
-# from review import views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -26,6 +25,8 @@ urlpatterns = [
     path('logout/', views.logout_user, name='logout'),
     path('registration/', views.registration),
     path('registration-confirmation/', views.RegistrationConfirmation),
+    # path('flow/subscription/', views.subscription, name='abonnements'),
+    # path('unfollow/<int:user_to_unfollow_id>/', views.unfollow),
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,

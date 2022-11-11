@@ -18,9 +18,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-import authentication
-from authentication import views
-import review
+# import authentication
+# from authentication import views
+# import review
 
 
 urlpatterns = [

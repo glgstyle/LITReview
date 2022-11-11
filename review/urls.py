@@ -17,9 +17,11 @@ from django.urls import path
 from review import views
 from django.conf import settings
 from django.conf.urls.static import static
+from authentication import views
 
 
 urlpatterns = [
+    path('', views.flow, name='flux'),
     path('create_ticket/', views.createTicket),
     path('create_review/', views.createReview),
     path('create_review_from_ticket/<int:ticket_id>/', views.createReviewFromTicket, name='ticketReview'),
@@ -30,7 +32,6 @@ urlpatterns = [
     path('delete_your_ticket/<int:ticket_id>/', views.deleteTicket),
     path('unfollow/<int:user_to_unfollow_id>/', views.unfollow),
     path('modify_your_ticket/<int:ticket_id>/', views.modifyYourTicket),
-    path('', views.flow, name='flux'),
     path('confirmation/<str:return_url>/', views.confirmation),
 ]
 if settings.DEBUG:

@@ -8,7 +8,9 @@
         <h4>{{ followed_user_review.headline| capfirst }}</h4><span>-</span>
         <!-- <div hidden class="hidden_rating" value="{{ review.rating }}">{{ review.rating }}</div> -->
         <div class="hidden_rating" value="{{ review.rating }}">{{ review.rating }}</div>
-        <div class="rating-view" id="rat"> 
+        <!-- <div class="rating-view" id="rat">  -->
+        <div class="rating" id="rat"> 
+
             <input type="checkbox" name="star-rating" value="5" id="5"><label {% if review.rating > 4 %} checked="checked" {% endif %} for="5">☆</label> 
             <input type="checkbox" name="star-rating" value="4" id="4"><label {% if review.rating > 3 %} checked="checked" {% endif %} for="4">☆</label> 
             <input type="checkbox" name="star-rating" value="3" id="3"><label {% if review.rating > 2 %} checked="checked" {% endif %} for="3">☆</label> 
