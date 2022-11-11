@@ -3,6 +3,9 @@
 <link rel="stylesheet" href="{% static 'style/create_review.css' %}">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 {% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+{% endblock %}
 <body>
     {% block content %}
         <main>
@@ -14,18 +17,29 @@
                     <h2>Titre</h2>
                     <div class="title">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="book-title" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            {{ ticket_form.title }}
+                            <!-- <input type="text" class="form-control" id="book-title" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
+                        </div>
+                    </div>
+                    <h2>Auteur</h2>
+                    <div class="title">
+                        <div class="input-group mb-3">
+                            {{ ticket_form.author }}
+                            <!-- <input type="text" class="form-control" id="book-title" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
                         </div>
                     </div>
                     <h3>Description</h3>
                     <div class="description">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="book-description" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            {{ ticket_form.description }}
+                            <!-- <input type="text" class="form-control" id="book-description" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
                         </div>
                     </div>
                     <h4>Image</h4>
                     <div class="image">
-                        <button class="btn btn-primary" type="button" id="button-uppload">Télécharger le fichier</button>
+                        {{ ticket_form.image }}
+                        <div id="display-image"></div>
+                        <!-- <button class="btn btn-primary" type="button" id="button-uppload">Télécharger le fichier</button> -->
                     </div>
                 </div>
             </div>
@@ -35,26 +49,45 @@
                     <h2>Titre</h2>
                     <div class="title-of-review">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="review-title" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            {{ review_form.headline }}
+                            <!-- <input type="text" class="form-control" id="review-title" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
                         </div>
                     </div>
                     <h3>Note</h3>
                     <div class="rate">
-                        <!-- <h4>Excellent</h4><span>-</span> -->
-                        <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                        <div class="rating" id="star-rate"> 
+                            <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="5" id="5"><label for="5">☆</label> 
+                            <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="4" id="4"><label for="4">☆</label>
+                            <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="3" id="3"><label for="3">☆</label> 
+                            <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="2" id="2"><label for="2">☆</label> 
+                            <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="1" id="1"><label for="1">☆</label>
                         </div>
                     </div>
+                    <div hidden="hidden">{{ form.rating }}</div>
                     <h3>Commentaire</h3>
                     <div class="comment">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="book-description" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            {{ review_form.body }}
+                            <!-- <input type="text" class="form-control" id="book-description" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
                         </div>
                     </div>
                     <div class="send">
-                        <button class="btn btn-primary" type="button" id="button-upload">Envoyer</button>
+                        <button class="btn btn-primary" type="submit" id="button-upload">Envoyer</button>
                     </div>
                 </div>
             </div>
         </main>
+        <script>
+            const image_input = document.querySelector("#image-input");
+            image_input.addEventListener("change", function() {
+            const reader = new FileReader();
+            reader.addEventListener("load", () => {
+                const uploaded_image = reader.result;
+                document.querySelector("#display-image").style.backgroundImage = `url(${uploaded_image})`;
+            });
+            reader.readAsDataURL(this.files[0]);
+            });
+        </script>
+        <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
     {% endblock %}
 </body>

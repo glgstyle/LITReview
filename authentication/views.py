@@ -117,4 +117,3 @@ def unfollow(request, user_to_unfollow_id):
         # return HttpResponseRedirect('/flow/confirmation/')
         return confirmation(request, return_url="flow/subscription/")
     return render(request, "delete.html", {'followed_user':followed_user})
-

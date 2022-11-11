@@ -1,4 +1,3 @@
-# from django import views
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -62,7 +61,40 @@ def deleteTicket(request, ticket_id):
 # review
 def createReview(request):
     """View function for createReview page of application."""
-    return render(request, "create-review.html")
+    # ticket_form
+    ticket_form = TicketForm(request.POST, request.FILES)
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        if ticket_form.is_valid():
+            ticket = ticket_form.save(commit=False)
+            ticket.user = request.user
+            existing_ticket = Ticket.objects.filter(title=ticket.title).exists()
+            # check if this ticket already exists
+            if existing_ticket:
+                messages.error(request, 'Désolé un ticket a déjà été crée sur ce livre.', extra_tags='name')
+            else:
+                ticket.save()
+                # redirect to a new URL:
+                return HttpResponseRedirect('/flow/')
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        ticket_form = TicketForm()
+
+    # review_form
+    review_form = ReviewForm(request.POST)
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.ticket = ticket
+            review.user = request.user
+            review.save()
+            # redirect to a new URL:
+            return HttpResponseRedirect('/flow/')
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        review_form = ReviewForm()
+    return render(request, "create-review.html", {'ticket_form': ticket_form, 'review_form': review_form})
 
 def createReviewFromTicket(request, ticket_id):
     """View function for createReviewFromTicket page of application."""
@@ -150,68 +182,3 @@ def displayYourPosts(request):
 def confirmation(request, return_url):
     """View function for confirmation page of application."""
     return render(request, "confirmation.html", {'return_url': return_url})
-
-
-
-# def subscription(request):
-#     """View function for subscription page of application."""
-#     followed_users = get_followed_users(request)
-#     followers = get_followed_by(request)
-#     if request.method == 'POST':
-#         form = SubscriptionForm(request.POST)
-#         if form.is_valid():
-#             user_to_follow = form.cleaned_data.get('followed_user')
-#             userFollow = UserFollows()
-#             userFollow.user = request.user
-#             existing_user = User.objects.filter(username=user_to_follow, is_active=True).exists()
-#             if existing_user:
-#                 get_user_to_follow = User.objects.get(username=user_to_follow)  
-#             get_request_user = User.objects.get(username=request.user)
-#             # search in database if user_to_follow already followed by this user
-#             user_followed = UserFollows.objects.filter(user=request.user, followed_user__username=user_to_follow).exists()
-#             try:
-#                 # if user to follow exists record it
-#                 if not existing_user:
-#                     messages.error(request, "Cet utilisateur n'existe pas, veuillez recommencer.", extra_tags='name')
-#                     # if user try to follow himself
-#                 elif get_user_to_follow.username == get_request_user.username :
-#                     messages.error(request, 'Vous ne pouvez pas suivre votre propre compte.', extra_tags='name')
-#                 # if we already follow him
-#                 elif user_followed:
-#                     messages.error(request, 'Vous suivez déjà cet utilisateur.', extra_tags='name')
-#                 else:
-#                     userFollow.followed_user = get_user_to_follow
-#                     userFollow.save()
-#                     messages.success(request, "Cet utilisateur à été ajouté à votre liste.", extra_tags='name')
-#             except IntegrityError:
-#                 messages.error(request, 'Vous ne pouvez pas suivre votre propre compte.', extra_tags='name')
-#             except TypeError:
-#                 messages.error(request, 'Vous suivez déjà cet utilisateur.', extra_tags='name')
-#         else:
-#             print('is not valid', form)
-#     else: # if a GET (or any other method) we'll create a blank form
-#         form = SubscriptionForm() 
-#     return render(request, "subscription.html",{'form': form, 'followed_users': followed_users, 'followers': followers})
-
-# def get_followed_users(request):
-#     followed_users = UserFollows.objects.filter(user=request.user)
-#     return followed_users
-
-# def get_followed_by(request):
-#     followed_by = UserFollows.objects.filter(followed_user=request.user)
-#     return followed_by
-
-# def unfollow(request, user_to_unfollow_id):
-#     followed_user = UserFollows.objects.get(pk=user_to_unfollow_id)
-#     if request.method == 'POST':
-#         followed_user.delete()
-#         # return HttpResponseRedirect('/flow/confirmation/')
-#         return confirmation(request, return_url="flow/subscription/")
-#     return render(request, "delete.html", {'followed_user':followed_user})
-
-
-
-
-        
-
-    

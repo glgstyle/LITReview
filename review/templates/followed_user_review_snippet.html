@@ -7,15 +7,14 @@
     <div class="rate">
         <h4>{{ followed_user_review.headline| capfirst }}</h4><span>-</span>
         <!-- <div hidden class="hidden_rating" value="{{ review.rating }}">{{ review.rating }}</div> -->
-        <div class="hidden_rating" value="{{ review.rating }}">{{ review.rating }}</div>
+        <div class="hidden_rating" value="{{ review.rating }}">{{ followed_user_review.rating }}</div>
         <!-- <div class="rating-view" id="rat">  -->
-        <div class="rating" id="rat"> 
-
-            <input type="checkbox" name="star-rating" value="5" id="5"><label {% if review.rating > 4 %} checked="checked" {% endif %} for="5">☆</label> 
-            <input type="checkbox" name="star-rating" value="4" id="4"><label {% if review.rating > 3 %} checked="checked" {% endif %} for="4">☆</label> 
-            <input type="checkbox" name="star-rating" value="3" id="3"><label {% if review.rating > 2 %} checked="checked" {% endif %} for="3">☆</label> 
-            <input type="checkbox" name="star-rating" value="2" id="2"><label {% if review.rating > 1 %} checked="checked" {% endif %} for="2">☆</label> 
-            <input type="checkbox" name="star-rating" value="1" id="1"><label {% if review.rating > 0 %} checked="checked" {% endif %} for="1">☆</label>
+        <div class="rating-view"> 
+            <input type="checkbox" name="star-rating-1-followed-user" value="5" id="5" {% if followed_user_review.rating > 4 %} checked {% endif %} disabled><label for="5">☆</label> 
+            <input type="checkbox" name="star-rating-2-followed-user" value="4" id="4" {% if followed_user_review.rating > 3 %} checked {% endif %} disabled><label for="4">☆</label> 
+            <input type="checkbox" name="star-rating-3-followed-user" value="3" id="3" {% if followed_user_review.rating > 2 %} checked {% endif %} disabled><label for="3">☆</label> 
+            <input type="checkbox" name="star-rating-4-followed-user" value="2" id="2" {% if followed_user_review.rating > 1 %} checked {% endif %} disabled><label for="2">☆</label> 
+            <input type="checkbox" name="star-rating-5-followed-user" value="1" id="1" {% if followed_user_review.rating > 0 %} checked {% endif %} disabled><label for="1">☆</label>
         </div>
     </div>
     <blockquote>{{ followed_user_review.body }}</blockquote>

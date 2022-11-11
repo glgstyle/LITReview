@@ -66,42 +66,42 @@ body{
                 padding-right: 15px;
                 font-weight: 500;
             }
-            .rating {
+            .rating, .rating-view{
                 display: flex;
                 flex-direction: row-reverse;
                 justify-content: center
             }
-            
-            .rating>input {
-                display: none
+            .rating, .rating-view>input {
+                display: none;
             }
-            
-            .rating>label {
+            .rating, .rating-view>label {
                 position: relative;
                 width: 1em;
                 font-size: 30px;
                 font-weight: 300;
                 color: #FFD600;
-                cursor: pointer
+                cursor: pointer;
             }
-            
-            .rating>label::before {
+            .rating, .rating-view>label::before {
                 content: "\2605";
                 position: absolute;
-                opacity: 0
+                opacity: 0;
             }
-            
+            .rating-view>input:checked~label::before{
+                opacity: 1;
+            }
             .rating>label:hover:before,
             .rating>label:hover~label:before {
-                opacity: 1 !important
+                opacity: 1 !important;
             }
-            
             .rating>input:checked~label:before {
                 opacity: 1
-            }
-            
+            } 
             .rating:hover>input:checked~label:before {
                 opacity: 0.4
+            }
+            .hidden_rating{
+                display:none;
             }
         }
     }

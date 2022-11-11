@@ -29,6 +29,16 @@ body main #book-description {
 body main #button-upload {
   width: 200px;
 }
+body main .image {
+  display: flex;
+}
+body main .image #display-image {
+  width: 200px;
+  height: 225px;
+  border: 1px solid black;
+  background-position: center;
+  background-size: cover;
+}
 body main .send {
   height: 80px;
 }

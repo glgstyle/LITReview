@@ -28,7 +28,8 @@ class TicketForm(forms.ModelForm):
             'image': forms.FileInput(attrs={
                     # 'class': 'btn btn-primary',
                     'type': 'file',
-                    'id': 'button-upload',
+                    # 'id': 'button-upload',
+                    'id' : "image-input",
                     'style':'color:transparent;',
                     'name': 'button-uppload',
                     'label':'Télécharger le fichier',

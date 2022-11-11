@@ -66,15 +66,15 @@ body .flow .rate h4, body .flow .rate span {
   padding-right: 15px;
   font-weight: 500;
 }
-body .flow .rate .rating {
+body .flow .rate .rating, body .flow .rate .rating-view {
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
 }
-body .flow .rate .rating > input {
+body .flow .rate .rating, body .flow .rate .rating-view > input {
   display: none;
 }
-body .flow .rate .rating > label {
+body .flow .rate .rating, body .flow .rate .rating-view > label {
   position: relative;
   width: 1em;
   font-size: 30px;
@@ -82,10 +82,13 @@ body .flow .rate .rating > label {
   color: #FFD600;
   cursor: pointer;
 }
-body .flow .rate .rating > label::before {
+body .flow .rate .rating, body .flow .rate .rating-view > label::before {
   content: "★";
   position: absolute;
   opacity: 0;
+}
+body .flow .rate .rating-view > input:checked ~ label::before {
+  opacity: 1;
 }
 body .flow .rate .rating > label:hover:before,
 body .flow .rate .rating > label:hover ~ label:before {
@@ -96,6 +99,9 @@ body .flow .rate .rating > input:checked ~ label:before {
 }
 body .flow .rate .rating:hover > input:checked ~ label:before {
   opacity: 0.4;
+}
+body .flow .rate .hidden_rating {
+  display: none;
 }
 
 /*# sourceMappingURL=flow.css.map */

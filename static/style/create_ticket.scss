@@ -19,9 +19,16 @@ body{
         #button-upload, #button-send{
             width: 200px;
         }
-        // #button-uppload{
-        //     visibility: hidden;
-        // }
+        .image{
+            display: flex;
+            #display-image{
+                width: 200px;
+                height: 225px;
+                border: 1px solid black;
+                background-position: center;
+                background-size: cover;
+            }
+        }
         .send{
             float: right;
         }

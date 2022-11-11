@@ -26,6 +26,16 @@ body{
         #button-upload{
             width: 200px;
         }
+        .image{
+            display: flex;
+            #display-image{
+                width: 200px;
+                height: 225px;
+                border: 1px solid black;
+                background-position: center;
+                background-size: cover;
+            }
+        }
         .send{
             height: 80px;
             .btn{
