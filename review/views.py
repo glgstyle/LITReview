@@ -142,10 +142,16 @@ def flow(request):
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
 
     # combine and sort the two types of posts
-    posts = sorted(chain(reviews, tickets, followed_users_reviews), 
+    try:
+        posts = sorted(chain(reviews, tickets, followed_users_reviews), 
+            key=lambda post: post.time_created, 
+            reverse=True
+        )
+    except UnboundLocalError:
+        posts = sorted(chain(reviews, tickets), 
         key=lambda post: post.time_created, 
         reverse=True
-    )
+        )
     return render(request, 'flow.html', context={'posts': posts})
 
 def get_users_viewable_reviews(review_user):
