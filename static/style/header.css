@@ -1,0 +1,41 @@
+/*# sourceMappingURL=_media_queries.css.map */
+header {
+  background-color: black;
+  color: white;
+  padding: 20px;
+}
+header div {
+  display: flex;
+  align-items: center;
+}
+header div img {
+  width: 7vw;
+  filter: invert(1);
+}
+header div a {
+  text-decoration: none;
+}
+header div a:visited {
+  color: white;
+}
+header div h1 {
+  font-size: 2.3em;
+  width: 80vw;
+  text-align: center;
+}
+header div ul {
+  position: absolute;
+  right: 5px;
+  width: 35vw;
+  display: flex;
+  justify-content: space-evenly;
+}
+header div ul a {
+  text-decoration: none;
+}
+header div ul a li {
+  display: block;
+  padding: 5px;
+  font-size: 1.1em;
+  list-style-type: none;
+}/*# sourceMappingURL=header.css.map */

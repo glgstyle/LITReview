@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}
+    {% block stylesheets %}
+        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+        <link rel="stylesheet" href="{% static 'style/header.css' %}">
+    {% endblock %}
+    <body>
+        {% block header %}
+        <header>
+            <div>
+                <a href="{% url 'accueil' %}"><img src="{% static 'images/LITReview_logo.png' %}" alt="icone de LIT Review"></a>
+                <a href="{% url 'accueil' %}"><h1>LITReview</h1></a>
+                <!-- If authenticated display -->
+                {% if user.is_authenticated %}       
+                <ul>
+                    <a href="{% url 'flux' %}"><li>Flux</li></a>
+                    <a href="/flow/display_your_posts/"><li>Posts</li></a>
+                    <a href="/flow/subscription/"><li>Abonnements</li></a>
+                    <!-- logout and path to home -->
+                    <a href="{% url 'logout' %}"><li>Se déconnecter</li></a>
+                </ul>
+                {% endif %}
+            </div>
+        </header>
+        {% endblock %}
+    </body>
+</html>

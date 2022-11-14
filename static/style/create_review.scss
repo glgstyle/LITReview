@@ -1,0 +1,93 @@
+body{
+    width: 100%;
+    box-sizing: border-box;
+    main{
+        width: 90%;
+        margin: auto;
+        .book-review-container, .review-text-container{
+            border: 1px solid black;
+            padding: 5px;
+            .book-review-content, .review-text-content{
+                padding: 20px;
+            }
+        }
+        h1{
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 25px;
+        }
+        h2,h3,h4{
+            font-size: 1.2rem;
+            padding: 10px 10px 10px 0;
+        }
+        #book-description{
+            height: 150px;
+        }
+        #button-upload{
+            width: 200px;
+        }
+        .image{
+            display: flex;
+            #display-image{
+                width: 200px;
+                height: 225px;
+                border: 1px solid black;
+                background-position: center;
+                background-size: cover;
+            }
+        }
+        .send{
+            height: 80px;
+            .btn{
+                float: right;
+                margin-top: 40px;
+            }
+        }
+        .review-text-container{
+            margin-bottom: 20px;
+        }
+    }
+    // rating
+    .rate{
+        display: flex;
+        align-items: center;
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center
+        }
+        
+        .rating>input {
+            display: none
+        }
+        
+        .rating>label {
+            position: relative;
+            width: 1em;
+            font-size: 30px;
+            font-weight: 300;
+            color: #FFD600;
+            cursor: pointer;
+            margin: 0 50px;
+        }
+        
+        .rating>label::before {
+            content: "\2605";
+            position: absolute;
+            opacity: 0
+        }
+        
+        .rating>label:hover:before,
+        .rating>label:hover~label:before {
+            opacity: 1 !important
+        }
+        
+        .rating>input:checked~label:before {
+            opacity: 1
+        }
+        
+        .rating:hover>input:checked~label:before {
+            opacity: 0.4
+        }
+    }
+}

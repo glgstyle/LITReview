@@ -1,0 +1,87 @@
+/*# sourceMappingURL=_media_queries.css.map */
+header {
+  background-color: black;
+  color: white;
+  padding: 20px;
+}
+header div {
+  display: flex;
+  align-items: center;
+}
+header div img {
+  width: 7vw;
+  filter: invert(1);
+}
+header div a {
+  text-decoration: none;
+}
+header div a:visited {
+  color: white;
+}
+header div h1 {
+  font-size: 2.3em;
+  width: 80vw;
+  text-align: center;
+}
+header div ul {
+  position: absolute;
+  right: 5px;
+  width: 35vw;
+  display: flex;
+  justify-content: space-evenly;
+}
+header div ul a {
+  text-decoration: none;
+}
+header div ul a li {
+  display: block;
+  padding: 5px;
+  font-size: 1.1em;
+  list-style-type: none;
+}
+
+/*# sourceMappingURL=_media_queries.css.map */
+body {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 auto;
+  background-color: lightgrey;
+}
+body .login {
+  display: flex;
+  align-items: center;
+  width: 65%;
+  margin: auto;
+}
+body .login .login-form, body .login .register {
+  width: 415px;
+  margin: 50px auto;
+}
+body .login .login-form form, body .login .login-form .register-box, body .login .register form, body .login .register .register-box {
+  margin-bottom: 15px;
+  background: #f7f7f7;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  padding: 30px 15px;
+}
+body .login .login-form h2, body .login .register h2 {
+  margin: 0 0 15px;
+}
+body .login .form-control {
+  min-height: 38px;
+  border-radius: 2px;
+}
+body .login .btn {
+  min-height: 38px;
+  border-radius: 2px;
+  font-size: 15px;
+  font-weight: bold;
+  width: 150px;
+  margin: auto;
+  border-radius: 5px;
+}
+body .login .input-group-addon .fa {
+  font-size: 18px;
+}
+body .login .bottom-action {
+  font-size: 14px;
+}/*# sourceMappingURL=home.css.map */

@@ -1,0 +1,27 @@
+{% load static %}
+<div class="review-content">
+    <div class="review-title-and-date">
+        <h2>{{ followed_user_review.user }}, à publié une critique</h2>
+        <h3>{{ followed_user_review.time_created | date:'H:i, d F Y' }}</h3>
+    </div>
+    <div class="rate">
+        <h4>{{ followed_user_review.headline| capfirst }}</h4><span>-</span>
+        <div class="hidden_rating" value="{{ review.rating }}">{{ followed_user_review.rating }}</div>
+        <div class="rating-view"> 
+            <input type="checkbox" name="star-rating-1-followed-user" value="5" id="5" {% if followed_user_review.rating > 4 %} checked {% endif %} disabled><label for="5">☆</label> 
+            <input type="checkbox" name="star-rating-2-followed-user" value="4" id="4" {% if followed_user_review.rating > 3 %} checked {% endif %} disabled><label for="4">☆</label> 
+            <input type="checkbox" name="star-rating-3-followed-user" value="3" id="3" {% if followed_user_review.rating > 2 %} checked {% endif %} disabled><label for="3">☆</label> 
+            <input type="checkbox" name="star-rating-4-followed-user" value="2" id="2" {% if followed_user_review.rating > 1 %} checked {% endif %} disabled><label for="2">☆</label> 
+            <input type="checkbox" name="star-rating-5-followed-user" value="1" id="1" {% if followed_user_review.rating > 0 %} checked {% endif %} disabled><label for="1">☆</label>
+        </div>
+    </div>
+    <blockquote>{{ followed_user_review.body }}</blockquote>
+    <div class="ticket">
+        <h4>{{ followed_user_review.ticket.user }}</h4>
+        <h5>{{ followed_user_review.ticket.title }} - {{ followed_user_review.ticket.author }}</h5>
+        <figure>
+            <img src="/{{ followed_user_review.ticket.image }}" alt="couverture du livre {{ review.ticket.title }}" style="max-width:80%">
+        </figure>
+    </div>
+</div>
+        

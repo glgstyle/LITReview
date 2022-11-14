@@ -1,0 +1,27 @@
+{% load static %}
+<div class="review-content">
+    <div class="review-title-and-date">
+        <h2>{{ review.user | capfirst}}, Vous avez publié une critique</h2>
+        <h3>{{ review.time_created | date:'H:i, d F Y' }}</h3>
+    </div>
+    <div class="rate">
+        <h4>{{ review.headline| capfirst }}</h4><span>-</span>
+        <div class="hidden_rating" value="{{ review.rating }}">{{ review.rating }}</div>
+        <div class="rating-view" id="rat"> 
+            <input type="checkbox" name="star-rating-1" value="5" id="5" {% if review.rating > 4 %} checked {% endif %} disabled><label for="5">☆</label> 
+            <input type="checkbox" name="star-rating-2" value="4" id="4" {% if review.rating > 3 %} checked {% endif %} disabled><label for="4">☆</label> 
+            <input type="checkbox" name="star-rating-3" value="3" id="3" {% if review.rating > 2 %} checked {% endif %} disabled><label for="3">☆</label> 
+            <input type="checkbox" name="star-rating-4" value="2" id="2" {% if review.rating > 1 %} checked {% endif %} disabled><label for="2">☆</label> 
+            <input type="checkbox" name="star-rating-5" value="1" id="1" {% if review.rating > 0 %} checked {% endif %} disabled><label for="1">☆</label>
+        </div>
+    </div>
+    <blockquote>{{ review.body }}</blockquote>
+    <div class="ticket">
+        <h4>{{ review.ticket.user }}</h4>
+        <h5>{{ review.ticket.title }} - {{ review.ticket.author }}</h5>
+        <figure>
+            <img src="/{{ review.ticket.image }}" alt="couverture du livre {{ review.ticket.title }}" style="max-width:80%">
+        </figure>
+    </div>
+</div>
+        
