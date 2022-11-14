@@ -1,63 +1,63 @@
 {% extends 'base.html' %}{% load static %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{% static 'style/create_review_from_ticket.css' %}">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style/create_review_from_ticket.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 {% endblock %}
 {% block javascripts %}
     <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 {% endblock %}
 <body>
     {% block content %}
-        <main>
-            <h1>Modifier votre critique</h1>
-            <div class="book-review-container">
-                <h2>Vous êtes en train de poster en réponse à :</h2>
-                <div class="asked-review-container">
-                    <div class="asked-review-content">
-                        <div class="asked-review-title-and-date">
-                            <h2>{{ review.ticket.user }}</h2>
-                            <h3>{{ review.ticket.time_created | date:'H:i, d F Y' }}</h3>
-                        </div>
-                        <h5>{{ review.ticket.title }} - {{ review.ticket.author }}</h5>
-                        <p>{{ review.ticket.description }}</p>
-                        <img src="/{{ review.ticket.image }}" alt="couverture du livre {{ review.ticket.title }}" style="max-width:80%">
+    <main>
+        <h1>Modifier votre critique</h1>
+        <div class="book-review-container">
+            <h2>Vous êtes en train de poster en réponse à :</h2>
+            <div class="asked-review-container">
+                <div class="asked-review-content">
+                    <div class="asked-review-title-and-date">
+                        <h2>{{ review.ticket.user }}</h2>
+                        <h3>{{ review.ticket.time_created | date:'H:i, d F Y' }}</h3>
                     </div>
-                </div>
-            <div class="review-text-container">
-                <h2>Critique</h2>
-                <div class="review-text-content">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <h2>Titre</h2>
-                        <div class="title-of-review">
-                            <div class="input-group mb-3">
-                                {{ form.headline }}
-                            </div>
-                        </div>
-                        <h3>Note</h3>
-                        <div class="rate">
-                            <!-- <h4>Excellent</h4><span>-</span> -->
-                            <div class="rating" id="star-rate"> 
-                                <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="5" id="5"><label for="5">☆</label> 
-                                <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="4" id="4"><label for="4">☆</label>
-                                <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="3" id="3"><label for="3">☆</label> 
-                                <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="2" id="2"><label for="2">☆</label> 
-                                <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="1" id="1"><label for="1">☆</label>
-                            </div>
-                        </div>
-                        <div hidden="hidden">{{ form.rating }}</div>
-                        <h3>Commentaire</h3>
-                        <div class="comment">
-                            <div class="input-group mb-3">
-                                {{ form.body }}
-                            </div>
-                        </div>
-                        <div class="send">
-                            <button class="btn btn-primary" type="submit">Envoyer</button>
-                        </div>
-                    </form>
+                    <h5>{{ review.ticket.title }} - {{ review.ticket.author }}</h5>
+                    <p>{{ review.ticket.description }}</p>
+                    <img src="/{{ review.ticket.image }}" alt="couverture du livre {{ review.ticket.title }}" style="max-width:80%">
                 </div>
             </div>
-        </main>
+        <div class="review-text-container">
+            <h2>Critique</h2>
+            <div class="review-text-content">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <h2>Titre</h2>
+                    <div class="title-of-review">
+                        <div class="input-group mb-3">
+                            {{ form.headline }}
+                        </div>
+                    </div>
+                    <h3>Note</h3>
+                    <div class="rate">
+                        <!-- <h4>Excellent</h4><span>-</span> -->
+                        <div class="rating" id="star-rate"> 
+                            <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="5" id="5"><label for="5">☆</label> 
+                            <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="4" id="4"><label for="4">☆</label>
+                            <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="3" id="3"><label for="3">☆</label> 
+                            <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="2" id="2"><label for="2">☆</label> 
+                            <input onclick="setStarsValue(event)" type="radio" name="star-rating" value="1" id="1"><label for="1">☆</label>
+                        </div>
+                    </div>
+                    <div hidden="hidden">{{ form.rating }}</div>
+                    <h3>Commentaire</h3>
+                    <div class="comment">
+                        <div class="input-group mb-3">
+                            {{ form.body }}
+                        </div>
+                    </div>
+                    <div class="send">
+                        <button class="btn btn-primary" type="submit">Envoyer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
     {% endblock %}
 </body>
