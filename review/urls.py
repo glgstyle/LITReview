@@ -14,7 +14,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from review import views
 from django.conf import settings
 from django.conf.urls.static import static
 from authentication import views
@@ -24,7 +23,8 @@ urlpatterns = [
     path('', views.flow, name='flux'),
     path('create_ticket/', views.createTicket),
     path('create_review/', views.createReview),
-    path('create_review_from_ticket/<int:ticket_id>/', views.createReviewFromTicket, name='ticketReview'),
+    path('create_review_from_ticket/<int:ticket_id>/',
+         views.createReviewFromTicket, name='ticketReview'),
     path('subscription/', views.subscription, name='abonnements'),
     path('display_your_posts/', views.displayYourPosts),
     path('modify_your_review/<int:review_id>/', views.modifyYourReview),
@@ -35,6 +35,7 @@ urlpatterns = [
     path('confirmation/<str:return_url>/', views.confirmation),
 ]
 if settings.DEBUG:
-        urlpatterns += static(settings.MEDIA_URL,
-                              document_root=settings.MEDIA_ROOT)
-        urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)

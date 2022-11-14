@@ -102,6 +102,4 @@ body .flow .rate .rating:hover > input:checked ~ label:before {
 }
 body .flow .rate .hidden_rating {
   display: none;
-}
-
-/*# sourceMappingURL=flow.css.map */
+}/*# sourceMappingURL=flow.css.map */

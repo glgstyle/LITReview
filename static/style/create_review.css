@@ -84,6 +84,4 @@ body .rate .rating > input:checked ~ label:before {
 }
 body .rate .rating:hover > input:checked ~ label:before {
   opacity: 0.4;
-}
-
-/*# sourceMappingURL=create_review.css.map */
+}/*# sourceMappingURL=create_review.css.map */

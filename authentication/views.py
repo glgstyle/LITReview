@@ -23,10 +23,12 @@ def registration(request):
             email = form.cleaned_data.get('your_email')
             password = form.cleaned_data.get('your_password')
             user = User()
-            user.username=email
-            usernames = User.objects.filter(is_active=True).values_list('username', flat=True)
+            user.username = email
+            usernames = User.objects.filter(is_active=True)\
+                .values_list('username', flat=True)
             if email in usernames:
-                messages.error(request, 'Désolé ce mail existe déjà.', extra_tags='name')
+                messages.error(request, 'Désolé ce mail existe déjà.',
+                               extra_tags='name')
             else:
                 # encrypt password
                 user.set_password(password)
@@ -38,9 +40,11 @@ def registration(request):
         form = NewUserForm()
     return render(request, 'registration.html', {'form': form})
 
+
 def RegistrationConfirmation(request):
     """View function for registration confirmation page of application."""
     return render(request, "registration-confirmation.html")
+
 
 # login/logout
 def login_page(request):
@@ -64,10 +68,12 @@ def login_page(request):
     return render(
         request, 'index.html', context={'form': form})
 
+
 def logout_user(request):
     logout(request)
     # Redirect back to index page.
     return redirect('/')
+
 
 # subscription
 def subscription(request):
@@ -80,35 +86,46 @@ def subscription(request):
             user_to_follow = form.cleaned_data.get('followed_user')
             userFollow = UserFollows()
             userFollow.user = request.user
-            existing_user = User.objects.filter(username=user_to_follow, is_active=True).exists()
+            existing_user = User.objects.filter(username=user_to_follow,
+                                                is_active=True).exists()
             if existing_user:
-                get_user_to_follow = User.objects.get(username=user_to_follow)  
+                get_user_to_follow = User.objects.get(username=user_to_follow)
             get_request_user = User.objects.get(username=request.user)
-            # search in database if user_to_follow already followed by this user
-            user_followed = UserFollows.objects.filter(user=request.user, followed_user__username=user_to_follow).exists()
+            # search in db if user_to_follow already followed by this user
+            user_followed = UserFollows.objects\
+                .filter(user=request.user,
+                        followed_user__username=user_to_follow).exists()
             try:
                 # if user to follow exists record it
                 if not existing_user:
-                    messages.error(request, "Cet utilisateur n'existe pas, veuillez recommencer.", extra_tags='name')
+                    messages.error(request, "Cet utilisateur n'existe pas,"
+                                   "veuillez recommencer.", extra_tags='name')
                     # if user try to follow himself
-                elif get_user_to_follow.username == get_request_user.username :
-                    messages.error(request, 'Vous ne pouvez pas suivre votre propre compte.', extra_tags='name')
+                elif get_user_to_follow.username == get_request_user.username:
+                    messages.error(request, 'Vous ne pouvez pas suivre votre'
+                                   ' propre compte.', extra_tags='name')
                 # if we already follow him
                 elif user_followed:
-                    messages.error(request, 'Vous suivez déjà cet utilisateur.', extra_tags='name')
+                    messages.error(request, 'Vous suivez déjà cet '
+                                   'utilisateur.', extra_tags='name')
                 else:
                     userFollow.followed_user = get_user_to_follow
                     userFollow.save()
-                    messages.success(request, "Cet utilisateur à été ajouté à votre liste.", extra_tags='name')
+                    messages.success(request, "Cet utilisateur à été ajouté à "
+                                     "votre liste.", extra_tags='name')
             except IntegrityError:
-                messages.error(request, 'Vous ne pouvez pas suivre votre propre compte.', extra_tags='name')
+                messages.error(request, 'Vous ne pouvez pas suivre votre '
+                                        'propre compte.', extra_tags='name')
             except TypeError:
-                messages.error(request, 'Vous suivez déjà cet utilisateur.', extra_tags='name')
+                messages.error(request, 'Vous suivez déjà cet utilisateur.',
+                               extra_tags='name')
         else:
             print('is not valid', form)
-    else: # if a GET (or any other method) we'll create a blank form
-        form = SubscriptionForm() 
-    return render(request, "subscription.html",{'form': form, 'followed_users': followed_users, 'followers': followers})
+    else:  # if a GET (or any other method) we'll create a blank form
+        form = SubscriptionForm()
+    return render(request, "subscription.html", {'form': form,
+                  'followed_users': followed_users, 'followers': followers})
+
 
 def unfollow(request, user_to_unfollow_id):
     followed_user = UserFollows.objects.get(pk=user_to_unfollow_id)
@@ -116,4 +133,4 @@ def unfollow(request, user_to_unfollow_id):
         followed_user.delete()
         # return HttpResponseRedirect('/flow/confirmation/')
         return confirmation(request, return_url="flow/subscription/")
-    return render(request, "delete.html", {'followed_user':followed_user})
+    return render(request, "delete.html", {'followed_user': followed_user})
