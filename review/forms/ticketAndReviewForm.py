@@ -1,8 +1,12 @@
-from django import forms
+from .reviewForm import ReviewForm
+from .ticketForm import TicketForm
+from review.models import Review
 from review.models import Ticket
+from django import forms
+from django.forms.models import modelformset_factory
 
 
-class TicketForm(forms.ModelForm):
+class TicketAndReviewForm(forms.ModelForm):
     class Meta:
             model = Ticket
             fields = ['title', 'author', 'description', 'image']
@@ -35,3 +39,29 @@ class TicketForm(forms.ModelForm):
 
                 })
             }
+    
+ReviewFormset = modelformset_factory(
+Review,
+fields = ['rating', 'headline', 'body'],
+# extra=4,
+widgets = {
+        'rating': forms.NumberInput(attrs={
+            'class': "form-control",
+            'id': "result",
+            'autocomplete': 'OFF',
+            'required': 'required'
+            }),  
+        'headline': forms.TextInput(attrs={
+            'class': "form-control",
+            'id': "review-title",
+            'autocomplete': 'OFF',
+            'required': 'required',
+            }),
+        'body': forms.Textarea(attrs={
+            'class': "form-control", 
+            'id': 'book-description',
+            'autocomplete': 'OFF'
+            })
+        }
+        )
+           

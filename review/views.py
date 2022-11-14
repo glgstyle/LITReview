@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from review.models import Ticket, Review
 from .forms.ticketForm import TicketForm
 from .forms.reviewForm import ReviewForm
+from .forms.ticketAndReviewForm import TicketAndReviewForm
+from .forms.ticketAndReviewForm import ReviewFormset
 from django.contrib import messages
 from itertools import chain
 from django.db.models import CharField, Value
@@ -58,43 +60,25 @@ def deleteTicket(request, ticket_id):
         return confirmation(request, return_url="flow/")
     return render(request, "delete.html", {'ticket':ticket})
 
-# review
 def createReview(request):
     """View function for createReview page of application."""
-    # ticket_form
-    ticket_form = TicketForm(request.POST, request.FILES)
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        if ticket_form.is_valid():
-            ticket = ticket_form.save(commit=False)
-            ticket.user = request.user
-            existing_ticket = Ticket.objects.filter(title=ticket.title).exists()
-            # check if this ticket already exists
-            if existing_ticket:
-                messages.error(request, 'Désolé un ticket a déjà été crée sur ce livre.', extra_tags='name')
-            else:
-                ticket.save()
-                # redirect to a new URL:
-                return HttpResponseRedirect('/flow/')
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        ticket_form = TicketForm()
-
-    # review_form
-    review_form = ReviewForm(request.POST)
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        if review_form.is_valid():
-            review = review_form.save(commit=False)
-            review.ticket = ticket
+    if request.method=='POST':
+        print("on est dans requete post")
+        ticket_and_review_form = TicketAndReviewForm(request.POST, request.FILES)
+        formset = ReviewForm(request.POST)
+        if ticket_and_review_form.is_valid() and formset.is_valid():
+            ticket_and_review_form = ticket_and_review_form.save(commit=False)
+            ticket_and_review_form.user = request.user
+            review = formset.save(commit=False)
+            review.ticket = ticket_and_review_form
             review.user = request.user
+            ticket_and_review_form = ticket_and_review_form.save()
             review.save()
-            # redirect to a new URL:
             return HttpResponseRedirect('/flow/')
-    # if a GET (or any other method) we'll create a blank form
     else:
-        review_form = ReviewForm()
-    return render(request, "create-review.html", {'ticket_form': ticket_form, 'review_form': review_form})
+        ticket_and_review_form = TicketAndReviewForm()
+        formset = ReviewFormset(queryset=Review.objects.none())
+    return render(request, "create-review.html", {'ticket_and_review_form':ticket_and_review_form, 'formset':formset})
 
 def createReviewFromTicket(request, ticket_id):
     """View function for createReviewFromTicket page of application."""

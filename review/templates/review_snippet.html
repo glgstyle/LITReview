@@ -6,7 +6,6 @@
     </div>
     <div class="rate">
         <h4>{{ review.headline| capfirst }}</h4><span>-</span>
-        <!-- <div hidden class="hidden_rating" value="{{ review.rating }}">{{ review.rating }}</div> --> 
         <div class="hidden_rating" value="{{ review.rating }}">{{ review.rating }}</div>
         <div class="rating-view" id="rat"> 
             <input type="checkbox" name="star-rating-1" value="5" id="5" {% if review.rating > 4 %} checked {% endif %} disabled><label for="5">☆</label> 
