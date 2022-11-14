@@ -92,6 +92,25 @@
                     </div>
                     {% endif %}
                 {% endfor %}
+                {% for ticket in my_tickets %}
+                {% if ticket.id != review.ticket.id %}
+                <div class="asked-reviews">
+                    <div class="asked-review-content">
+                        <div class="asked-review-title-and-date">
+                            <h2>{{ ticket.user }}, Vous avez publié un ticket {{ ticket.id }}</h2>
+                            <h3>{{ ticket.time_created | date:'H:i, d F Y' }}</h3>
+                        </div>
+                        <h5>{{ ticket.title | capfirst }} - {{ ticket.author }}</h5>
+                        <p>{{ ticket.description }}</p>
+                        <img src="/{{ ticket.image }}" alt="couverture du livre {{ ticket.title }}" style="max-width:80%">
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary mt-3 m-2" onclick="window.location='/flow/modify_your_ticket/{{ ticket.id }}/';" value="click here">Modifier</button>
+                            <button type="submit" class="btn btn-primary mt-3 m-2" onclick="window.location='/flow/delete_your_ticket/{{ ticket.id }}/';">Supprimer</button>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
             </div>
             {% endif %}
         {% endfor %}

@@ -60,6 +60,7 @@ def deleteTicket(request, ticket_id):
         return confirmation(request, return_url="flow/")
     return render(request, "delete.html", {'ticket':ticket})
 
+# review
 def createReview(request):
     """View function for createReview page of application."""
     if request.method=='POST':
@@ -160,7 +161,8 @@ def displayYourPosts(request):
     """View function for displayYourPosts page of application."""
     tickets = Ticket.objects.all().order_by('time_created').reverse()
     reviews = Review.objects.filter(user=request.user).order_by('time_created').reverse()  
-    return render(request, "posts.html", {'tickets': tickets, 'reviews': reviews})
+    my_tickets = Ticket.objects.filter(user=request.user).order_by('time_created').reverse()
+    return render(request, "posts.html", {'tickets': tickets, 'reviews': reviews, 'my_tickets': my_tickets})
 
 #  success page
 def confirmation(request, return_url):
