@@ -44,7 +44,10 @@ LITReview est une application permettant à une communauté d'utilisateurs de co
 
 # Utilisation
 
-- Pour démarrer le programme, exécutez simplement la commande suivante :
-    ``````
-- Pour valider chaque commande dans le terminal appuyez sur la touche  entrée 
+- Pour utiliser le site, démarrer le serveur avec la commande suivante:
 
+    ```python manage.py runserver```  
+
+- Puis rendez vous à l'adresse suivante dans votre navigateur internet:
+
+    http://127.0.0.1:8000/  
