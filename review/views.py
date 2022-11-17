@@ -144,22 +144,34 @@ def flow(request):
     reviews = get_users_viewable_reviews(request.user)
     # returns queryset of reviews
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+
     # query of followed_users_reviews
     followed_users = UserFollows.get_followed_users(request)
+    followed_users_reviews = []
     for usr in followed_users:
-        followed_users_reviews = get_users_viewable_reviews(usr.followed_user)
-        followed_users_reviews = followed_users_reviews.annotate(
-            content_type=Value('FOLLOWED_USER_REVIEW', CharField()))
+        reviews_user = get_users_viewable_reviews(usr.followed_user).annotate(
+            content_type=Value(
+                'FOLLOWED_USER_REVIEWS_AND_REVIEWS_ON_MY_TICKETS',
+                CharField()))
+        followed_users_reviews = chain(followed_users_reviews, reviews_user)
 
-    tickets = get_users_viewable_tickets(request.user)
+    # reviews on my ticket
+    reviews_on_my_tickets = Review.objects.filter(
+        ticket__user=request.user).order_by('time_created').annotate(
+            content_type=Value(
+                'FOLLOWED_USER_REVIEWS_AND_REVIEWS_ON_MY_TICKETS',
+                CharField()))
+
+    tickets = Ticket.objects.all()
     # returns queryset of tickets
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
 
     # combine and sort the two types of posts
     try:
-        posts = sorted(chain(reviews, tickets, followed_users_reviews),
-                       key=lambda post: post.time_created,
-                       reverse=True)
+        posts = sorted(
+            chain(reviews, tickets, followed_users_reviews,
+                  reviews_on_my_tickets),
+            key=lambda post: post.time_created, reverse=True)
     except UnboundLocalError:
         posts = sorted(chain(reviews, tickets),
                        key=lambda post: post.time_created,
