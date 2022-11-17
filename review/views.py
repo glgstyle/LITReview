@@ -155,10 +155,11 @@ def flow(request):
                 CharField()))
         followed_users_reviews = chain(followed_users_reviews, reviews_user)
 
-    # reviews on my ticket
+    # reviews on my ticket but exclude reviews on my ticket because already
+    # in reviews variable
     reviews_on_my_tickets = Review.objects.filter(
-        ticket__user=request.user).order_by('time_created').annotate(
-            content_type=Value(
+        ticket__user=request.user).exclude(user=request.user).order_by(
+            'time_created').annotate(content_type=Value(
                 'FOLLOWED_USER_REVIEWS_AND_REVIEWS_ON_MY_TICKETS',
                 CharField()))
 
