@@ -10,6 +10,7 @@ from django.contrib import messages
 from .models import UserFollows
 from review.views import *
 from django.db import IntegrityError
+import authentication.error_messages as MSG
 
 
 # registration
@@ -98,26 +99,23 @@ def subscription(request):
             try:
                 # if user to follow exists record it
                 if not existing_user:
-                    messages.error(request, "Cet utilisateur n'existe pas,"
-                                   "veuillez recommencer.", extra_tags='name')
+                    messages.error(request, MSG.NO_USER, extra_tags='name')
                     # if user try to follow himself
                 elif get_user_to_follow.username == get_request_user.username:
-                    messages.error(request, 'Vous ne pouvez pas suivre votre'
-                                   ' propre compte.', extra_tags='name')
+                    messages.error(request, MSG.OWN_ACCOUNT, extra_tags='name')
                 # if we already follow him
                 elif user_followed:
-                    messages.error(request, 'Vous suivez déjà cet '
-                                   'utilisateur.', extra_tags='name')
+                    messages.error(
+                        request, MSG.ALREADY_FOLLOWED, extra_tags='name')
                 else:
                     userFollow.followed_user = get_user_to_follow
                     userFollow.save()
-                    messages.success(request, "Cet utilisateur à été ajouté à "
-                                     "votre liste.", extra_tags='name')
+                    messages.success(
+                        request, MSG.USER_ADDED, extra_tags='name')
             except IntegrityError:
-                messages.error(request, 'Vous ne pouvez pas suivre votre '
-                                        'propre compte.', extra_tags='name')
+                messages.error(request, MSG.OWN_ACCOUNT, extra_tags='name')
             except TypeError:
-                messages.error(request, 'Vous suivez déjà cet utilisateur.',
+                messages.error(request, MSG.ALREADY_FOLLOWED,
                                extra_tags='name')
         else:
             print('is not valid', form)
