@@ -81,7 +81,9 @@ LITReview est une application permettant à une communauté d'utilisateurs de co
 4. L’étape finale est de saisir le mot de passe. On vous demande de le saisir deux fois, la seconde fois étant une confirmation de la première:
 
     ```Password: **********```
+
     ```Password (again): *********```
+    
     ```Superuser created successfully.```
 
 5. À présent, ouvrez un navigateur Web et allez à l’URL « /admin/ » de votre domaine local – par exemple, http://127.0.0.1:8000/admin/.

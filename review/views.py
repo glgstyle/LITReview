@@ -144,7 +144,6 @@ def flow(request):
     reviews = get_users_viewable_reviews(request.user)
     # returns queryset of reviews
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
-
     # query of followed_users_reviews
     followed_users = UserFollows.get_followed_users(request)
     followed_users_reviews = []
@@ -154,7 +153,6 @@ def flow(request):
                 'FOLLOWED_USER_REVIEWS_AND_REVIEWS_ON_MY_TICKETS',
                 CharField()))
         followed_users_reviews = chain(followed_users_reviews, reviews_user)
-
     # reviews on my ticket but exclude reviews on my ticket because already
     # in reviews variable
     reviews_on_my_tickets = Review.objects.filter(
@@ -162,7 +160,6 @@ def flow(request):
             'time_created').annotate(content_type=Value(
                 'FOLLOWED_USER_REVIEWS_AND_REVIEWS_ON_MY_TICKETS',
                 CharField()))
-
     tickets = Ticket.objects.all()
     # returns queryset of tickets
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
